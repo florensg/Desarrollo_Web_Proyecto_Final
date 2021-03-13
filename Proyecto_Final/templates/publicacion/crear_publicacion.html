@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Crear Publicación{% endblock %}
+
+{% block h1 %}Adopción Responsable de Mascotas{% endblock %}
+
+{% block main %}
+
+    {% load static %}
+
+    <main id="mainRegistrate">
+
+        <h2 class="titulo">Crear Publicación</h2>
+
+        <form id="crearPublicacion" method="post" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {{ form }}
+
+            <button type="submit">Subir</button>
+        </form>
+
+    </main>
+
+{% endblock %}

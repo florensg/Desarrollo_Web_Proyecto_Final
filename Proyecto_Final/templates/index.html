@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block h1 %}Adopción Responsable de Mascotas{% endblock %}
+
+{% block main %}
+
+    {% load static %}
+
+    <main id="seccionHome">
+
+        <div class="slider">
+            <ul>
+                <li><img src="{% static 'media/imgSlider1.jpg' %}" alt=""></li>
+                <li><img src="{% static 'media/imgSlider2.jpg' %}" alt=""></li>
+                <li><img src="{% static 'media/imgSlider3.jpg' %}" alt=""></li>
+                <li><img src="{% static 'media/imgSlider4.jpg' %}" alt=""></li>
+            </ul>
+        </div>
+
+        <section id="nosotros">
+            <h2 class="titulo">Nosotros</h2>
+            <p>
+                Somos una comunidad de personas amantes de los animales cuyo propósito es facilitar el proceso de
+                adopción responsable de mascotas sin hogar. En este sitio propiciamos la comunicación entre quienes
+                tienen una mascota a la que no pueden cuidar y aquellos interesados en amarlos y cuidarlos.
+            </p>
+        </section>
+
+        {% if not user.is_authenticated %}
+
+            <section id="formarParte">
+                <h2 class="titulo">Cómo formar parte de nuestra comunidad</h2>
+                <p>
+                    Si amas a los animales tanto como nosotros y además contás con los recursos y las ganas de
+                    cambiarle la vida a una mascota sin hogar; o si bien, encontraste a una mascota y por diversos
+                    motivos no te la podés quedar.
+                </p>
+                <div id="enlace">
+                    <a id="botonRegistro" href="{% url 'registrate' %}">¡Registrate y formá parte!</a>
+                </div>
+            </section>
+
+        {% endif %}
+
+    </main>
+
+{% endblock %}

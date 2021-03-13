@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Mascotas{% endblock %}
+
+{% block main %}
+
+    {% load static %}
+
+    <main>
+
+        <div id="mascotas">
+            <h2 class="titulo">Mascotas</h2>
+
+            {% for mascota, bool in mascotas_dic.items %}
+
+                <ul>
+                    <li>Foto: <img src="{{ MEDIA_URL }}{{ mascota.foto.url }}"></li>
+                    <li>Sexo: {{ mascota.sexo }}</li>
+                    <li>Raza: {{ mascota.raza }}</li>
+                    <li>Edad: {{ mascota.edad }}</li>
+                    <li>Descripcion: {{ mascota.descripcion }}</li>
+                    <li>Estado: {{ mascota.estado }}</li>
+                    <li>Futuro Dueño: {{ mascota.usuario_futuro_duenio }}</li>
+                </ul>
+
+                {% if bool %}
+                    <p>Ya estas postulado</p>
+
+                {% else %}
+
+                    <form action="{% url 'confirmar_postulacion' %}" method="get">
+                        <button type="submit" name="mascota" value="{{ mascota }}">Postularce</button>
+                    </form>
+
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+    </main>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Confirmar Postulación{% endblock %}
+
+{% block main %}
+
+    {% load static %}
+
+    <main>
+
+        <div id="postulantes">
+            <h2 class="titulo">Confirmar Postulación</h2>
+
+            {% for postulante in postulantes %}
+
+                <form action="" method="get">
+                    <button type="submit" name="usuario" value="{{ postulante }}">{{ postulante.usuario_postulado.username }}</button>
+                </form>
+
+            {% endfor %}
+
+            <form action="{% url 'postularce' %}" method="get">
+                <button type="submit" name="mascota" value="{{ mascota }}">Postularce</button>
+            </form>
+
+        </div>
+
+    </main>
+
+{% endblock %}

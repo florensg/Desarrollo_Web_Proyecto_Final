@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Confirmación de Eliminación{% endblock %}
+
+{% block main %}
+
+    {% load static %}
+
+    <main>
+
+        <div id="publicaciones">
+            <h2 class="titulo">Confirmación de Eliminación</h2>
+
+            <p>¿Estas seguro que deseas eliminar esta publicación con todas las mascotas que contiene?</p>
+
+            <form action="{% url 'eliminar_publicacion' %}" method="get">
+                <button type="submit" name="publicacion_a_eliminar" value="{{ publicacion_a_eliminar }}">Eliminar</button>
+            </form>
+
+            <div id="publicacion">
+
+                <ul>
+                    <li>Usuario: {{ publicacion.usuario_creador }}</li>
+                    <li>Especie: {{ publicacion.especie }}</li>
+                    <li>Foto: <img src="{{ MEDIA_URL }}{{ publicacion.foto.url }}"></li>
+                    <li>Descripción: {{ publicacion.descripcion }}</li>
+                    <li>Fecha: {{ publicacion.fecha }}</li>
+                    <li>Estado: {{ publicacion.estado }}</li>
+                </ul>
+
+                <form action="{% url 'ver_mascotas' %}" method="get">
+                    <button type="submit" name="publicacion" value="{{ publicacion }}">Ver Mascotas</button>
+                </form>
+
+            </div>
+
+        </div>
+
+    </main>
+
+{% endblock %}

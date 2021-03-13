@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Registrate{% endblock %}
+
+{% block h1 %}Adopción Responsable de Mascotas{% endblock %}
+
+{% block main %}
+
+    {% load static %}
+
+    <main id="mainRegistrate">
+
+        <h2 class="titulo">Registro</h2>
+
+        <p>Para generar tu usuario y formar parte de nuestra comunidad, completá el siguiente formulario. </p>
+        <p class="negrita"> Los campos con (*) son obligatorios</p>
+
+        <form id="registroUsuario" method="post">
+
+            {% csrf_token %}
+            {{ formulario }}
+
+            <button type="submit">Registrarme</button>
+        </form>
+
+    </main>
+
+{% endblock %}

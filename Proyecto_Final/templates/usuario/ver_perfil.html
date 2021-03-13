@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block main %}
+
+    {% load static %}
+
+    <main id="perfilUsuarioPropio">
+        <h2 class="titulo">Perfil</h2>
+
+        <div id="infoUser">
+
+            <div id="iconUsuarioContainer"> <img id="iconUserImg" src="{% static 'img/iconUsuario.png' %}" alt="iconUsuario"></div>
+
+            <p><b>Usuario:</b> {{ user.username }}</p>
+            <p><b>Email:</b> {{ user.email }}</p>
+            <p><b>Nombre:</b> {{ user.first_name }}</p>
+            <p><b>Apellido:</b> {{ user.last_name }}</p>
+            <p><b>Provincia:</b> {{ user.provincia }}</p>
+            <p><b>Ciudad:</b> {{ user.ciudad }}</p>
+
+            <p><b>Calificación:</b>
+                {% if user.promedio_calificacion != None %}
+                    {{ user.promedio_calificacion }}
+                {% else %}
+                    -
+                {% endif %}
+            </p>
+
+            <p><b>N° de Calificaciones:</b> {{ n_calificaciones }}</p>
+
+            <p><b>Descripción:</b>
+                {% if user.descripcion_propia != None %}
+                    {{ user.descripcion_propia }}
+                {% else %}
+                    Sin especificar
+                {% endif %}
+            </p>
+        </div>
+
+        <div id="asideOpcionesUser">
+            <ul>
+                <li><a href="{% url 'ver_mis_publicaciones' %}">> Mis Publicaciones</a></li>
+                <li><a href="{% url 'crear_publicacion' %}">> Crear una nueva publicación</a></li>
+                <li><a href="">> Publicaciones guardadas</a></li>
+                <li><a href="">> Tus postulaciones</a></li>
+                <li><a href="{% url 'editar_perfil' %}">> Editar Perfil</a></li>
+            </ul>
+        </div>
+
+    </main>
+
+{% endblock %}

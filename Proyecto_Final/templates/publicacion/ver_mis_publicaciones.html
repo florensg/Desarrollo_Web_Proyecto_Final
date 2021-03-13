@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Mis Publicaciones{% endblock %}
+
+{% block main %}
+
+    {% load static %}
+
+    <main>
+
+        <div id="publicaciones">
+            <h2 class="titulo">Mis Publicaciones</h2>
+
+            {% for publicacion in publicaciones %}
+
+                <div id="publicacion">
+
+                    <ul>
+                        <li>Usuario: {{ publicacion.usuario_creador }}</li>
+                        <li>Especie: {{ publicacion.especie }}</li>
+                        <li>Foto: <img src="{{ MEDIA_URL }}{{ publicacion.foto.url }}"></li>
+                        <li>Descripción: {{ publicacion.descripcion }}</li>
+                        <li>Fecha: {{ publicacion.fecha }}</li>
+                        <li>Estado: {{ publicacion.estado }}</li>
+                    </ul>
+
+                    <form action="{% url 'ver_mascotas' %}" method="get">
+                        <button type="submit" name="publicacion" value="{{ publicacion }}">Ver Mascotas</button>
+                    </form>
+
+                    <form action="{% url 'confirmar_eliminacion' %}" method="get">
+                        <button type="submit" name="publicacion" value="{{ publicacion }}">Eliminar</button>
+                    </form>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </main>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Crear Denuncia{% endblock %}
+
+{% block h1 %}Adopción Responsable de Mascotas{% endblock %}
+
+{% block main %}
+
+    {% load static %}
+
+    <main id="mainRegistrate">
+
+        <h2 class="titulo">Crear Denuncia</h2>
+
+        <form id="crearDenuncia" method="post" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {{ form }}
+
+            <button type="submit">Subir</button>
+        </form>
+
+    </main>
+
+{% endblock %}
