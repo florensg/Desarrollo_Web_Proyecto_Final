@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Editar{% endblock %}
+
+{% block h1 %}Adopción Responsable de Mascotas{% endblock %}
+
+{% block main %}
+
+    {% load static %}
+
+    <main>
+
+        <h2 class="titulo">Editar</h2>
+
+        {% if user.is_authenticated %}
+	        <form action="" method="post" enctype="multipart/form-data">
+
+	            {% csrf_token %}
+	            {{ form }}
+
+	            <input type="submit" value="Editar">
+
+	        </form>
+	    {% endif %}
+
+    </main>
+
+{% endblock %}

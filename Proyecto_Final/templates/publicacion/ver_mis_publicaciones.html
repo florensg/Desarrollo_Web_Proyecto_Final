@@ -16,18 +16,22 @@
                 <div id="publicacion">
 
                     <ul>
-                        <li>Usuario: {{ publicacion.usuario_creador }}</li>
-                        <li>Especie: {{ publicacion.especie }}</li>
-                        <li>Foto: <img src="{{ MEDIA_URL }}{{ publicacion.foto.url }}"></li>
-                        <li>Descripción: {{ publicacion.descripcion }}</li>
-                        <li>Fecha: {{ publicacion.fecha }}</li>
-                        <li>Estado: {{ publicacion.estado }}</li>
+                        <li><p>Usuario: {{ publicacion.usuario_creador }}</p></li>
+                        <li><p>Especie: {{ publicacion.especie }}</p></li>
+                        <li><p>Foto: <img src="{{ MEDIA_URL }}{{ publicacion.foto.url }}"></p></li>
+                        <li><p>Descripción: {{ publicacion.descripcion }}</p></li>
+                        <li><p>Fecha: {{ publicacion.fecha }}</p></li>
+                        <li><p><li> <p>Estado:
+                            {% if publicacion.estado %} 
+                                Abierto
+                            {% else %}
+                                Cerrado
+                            {% endif %}
+                            </p>
                     </ul>
-
-                    <form action="{% url 'ver_mascotas' %}" method="get">
-                        <button type="submit" name="publicacion" value="{{ publicacion }}">Ver Mascotas</button>
+                    <form action="{% url 'editar_publicacion' publicacion.id_publicacion %}" method='get'>
+                        <button type='submit' name='id_publicacion' value='{{publicacion.id_publicacion}}'>Editar</button>
                     </form>
-
                     <form action="{% url 'confirmar_eliminacion' %}" method="get">
                         <button type="submit" name="publicacion" value="{{ publicacion }}">Eliminar</button>
                     </form>

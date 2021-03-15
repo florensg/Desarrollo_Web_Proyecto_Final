@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.forms import ModelForm
 from apps.mascota.models import Mascota
 from apps.publicacion.models import Publicacion
-from apps.publicacion.models import Contador
+#from apps.publicacion.models import Contador
 from apps.postulante.models import Postulante
 
 
@@ -22,8 +22,8 @@ def crear_mascota(request):
 
     publicacion = Publicacion.objects.order_by('fecha').reverse().filter(usuario_creador=request.user)[0]
 
-    pet_number = int(Contador.objects.order_by('id_contador').reverse()
-                     .filter(publicacion=publicacion)[0].i)
+    '''pet_number = int(Contador.objects.order_by('id_contador').reverse()
+                                 .filter(publicacion=publicacion)[0].i)'''
 
     if request.method == 'POST':
 
@@ -37,14 +37,11 @@ def crear_mascota(request):
             form.save()
 
             # Se disminuye la variable contador en el campo i
-            Contador.objects.order_by('id_contador').reverse().filter(publicacion=publicacion) \
-                .update(i=pet_number - 1)
+            '''Contador.objects.order_by('id_contador').reverse().filter(publicacion=publicacion) \
+                                                    .update(i=pet_number - 1)'''
 
-            if pet_number == 1:
-                return redirect('ver_mis_publicaciones')
-            else:
-                return redirect('crear_mascota')
-
+            return redirect('ver_mis_publicaciones')
+            
     else:
         form = Pet_Form()
 
