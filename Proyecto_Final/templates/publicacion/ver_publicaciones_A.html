@@ -30,25 +30,24 @@
 
                     <ul>
                         <li> 
-                            <p>Usuario:</p> 
-                            <form action="{% url 'ver_usuario_externo' %}" method="get">
-                                <input type="hidden" name="usuario_creador" value=" usuario_creador ">
-                                <a href="{% url 'ver_usuario_externo' %}">{{ publicacion.usuario_creador }}</a>
-                            </form>
+                            <p>Usuario: <a href="{% url 'ver_usuario_externo' user.id %}">{{ publicacion.usuario_creador }}</a> </p>
                         </li>
-                        <li> <p>Especie:</p> {{ publicacion.especie }}</li>
+                        <li> <p>Especie: {{ publicacion.especie }}</p> </li>
                         <li> <p>Foto:</p> <img src="{{ MEDIA_URL }}{{ publicacion.foto.url }}"></li>
-                        <li> <p>Descripción:</p> {{ publicacion.descripcion }}</li>
-                        <li> <p>Fecha:</p> {{ publicacion.fecha }}</li>
-                        <li> <p>Estado:</p> {{ publicacion.estado }}</li>
+                        <li> <p>Descripción: {{ publicacion.descripcion }}</p></li>
+                        <li> <p>Fecha: {{ publicacion.fecha }}</p></li>
+                        <li> <p>Estado:
+                            {% if publicacion.estado %} 
+                                Abierto
+                            {% else %}
+                                Cerrado
+                            {% endif %}
+                            </p>
+                        </li>
                     </ul>
 
-                    <form action="{% url 'ver_mascotas' %}" method="get">
-                        <button type="submit" name="publicacion" value="{{ publicacion }}">Ver Mascotas</button>
-                    </form>
-
                 </div>
-
+                <br>
             {% endfor %}
 
         </div>

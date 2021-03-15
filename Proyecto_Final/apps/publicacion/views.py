@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.forms import ModelForm
 from apps.publicacion.models import Publicacion
-from apps.publicacion.models import Contador
 from apps.mascota.views import get_first_number_found
 from apps.mascota.models import Mascota
 
@@ -10,9 +9,8 @@ class Post_Form(ModelForm):
 
     class Meta:
         model = Publicacion
-        fields = {'descripcion', 'foto', 'especie', 'cantidad_de_mascotas'}
+        fields = {'nombre', 'descripcion', 'foto', 'especie', 'sexo', 'raza', 'edad'}
         labels = {'descripcion': 'Descripción General'}
-
 
 def crear_publicacion(request):
 
@@ -27,10 +25,7 @@ def crear_publicacion(request):
 
             form.save()
 
-            contador = Contador.objects.create(publicacion=publicacion, i=request.POST['cantidad_de_mascotas'])
-            contador.save()
-
-            return redirect(to='crear_mascota')
+            return redirect(to='ver_mis_publicaciones')
 
     else:
         form = Post_Form()
@@ -98,6 +93,42 @@ def ver_publicaciones_B(request):
                    'especie': especie}
 
     return render(request, 'publicacion/ver_publicaciones_B.html', context)
+
+class PublicacionForm(ModelForm):
+
+    class Meta:
+        model = Publicacion
+        fields = ['nombre', 'foto', 'sexo', 'raza', 'especie', 'edad', 'descripcion']
+
+    def __init__(self, *args, **kwargs):
+        super(self.__class__, self).__init__(*args, **kwargs)
+        self.fields['nombre'].required=False
+        self.fields['foto'].required=False
+        self.fields['sexo'].required=False
+        self.fields['raza'].required=False
+        self.fields['especie'].required=False
+        self.fields['edad'].required=False
+        self.fields['descripcion'].required=False
+
+
+def editar_publicacion(request,publicacion_id):
+
+    instancia = Publicacion.objects.get(id_publicacion=publicacion_id)
+    
+    form = PublicacionForm(instance=instancia)
+
+    if request.method == 'POST':
+
+        form = PublicacionForm(request.POST,request.FILES, instance= instancia)
+
+    if form.is_valid():
+
+        instancia = form.save(commit=False)
+        instancia.save()
+
+        return redirect('ver_mis_publicaciones')
+
+    return render(request, 'publicacion/editar_publicacion.html', {'form':form})
 
 
 # __________________ELIMINAR PUBLICACION
