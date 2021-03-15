@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
-from apps.mascota.models import Mascota
-from apps.mascota.views import get_first_number_found
 from apps.postulante.models import Postulante
+from apps.publicacion.models import Publicacion
 
 
-def confirmar_postulacion(request):
+def confirmar_postulacion1(request):
 
     context = {}
 
@@ -16,16 +15,18 @@ def confirmar_postulacion(request):
                     context = {'postulantes': postulantes,
                                'mascota': mascota}'''
 
-    return render(request, 'publicacion/postularce.html', context)
+    return render(request, 'publicacion/postularse.html', context)
 
 
-def postularce(request):
+def postularse(request,publicacion_id):
 
-    '''if request.GET['mascota']:
-            
-                    mascota = Mascota.objects.filter(id_mascota=get_first_number_found(request.GET['mascota']))[0]
-            
-                    postulante = Postulante(mascota=mascota, usuario_postulado=request.user)
-                    postulante.save()'''
+    context = {}
+    publicacion = Publicacion.objects.get(id_publicacion=publicacion_id)
+    if request.method == 'GET':
 
-    return redirect(to='ver_publicaciones')
+        postulante = Postulante(publicacion=publicacion, usuario_postulado=request.user)
+        postulante.save()
+
+        return redirect('ver_publicaciones_A')
+
+    return render(request,'publicacion/postularse.html',context)

@@ -3,6 +3,5 @@ from apps.postulante import views
 
 
 urlpatterns = [
-    path('confirmar_postulacion/', views.confirmar_postulacion, name='confirmar_postulacion'),
-    path('postularce/', views.postularce, name='postularce'),
+    path('postularse/<int:publicacion_id>', views.postularse, name='postularse'),
 ]

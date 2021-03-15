@@ -37,17 +37,40 @@
                         <li> <p>Descripción: {{ publicacion.descripcion }}</p></li>
                         <li> <p>Fecha: {{ publicacion.fecha }}</p></li>
                         <li> <p>Estado:
+
                             {% if publicacion.estado %} 
+
                                 Abierto
+
                             {% else %}
+
                                 Cerrado
+
                             {% endif %}
+
                             </p>
+                        </li>
+                        <li> <p>Usuarios postulados</p> </li>
+
+                        {% for postulante in postulantes %}
+
+                            <li><p>{{ postulante.usuario_postulado }}</p></li>
+
+                        {% endfor %}
+
+                        
+                        <li>
+                            {% if publicacion.estado %}
+                                <form action="{% url 'postularse' publicacion.id_publicacion %}" method='get'>
+                                    <button type='submit' name='id_publicacion' value='{{publicacion.id_publicacion}}'>Postularse</button>
+                                </form>
+                            {% endif %}
                         </li>
                     </ul>
 
                 </div>
                 <br>
+
             {% endfor %}
 
         </div>
