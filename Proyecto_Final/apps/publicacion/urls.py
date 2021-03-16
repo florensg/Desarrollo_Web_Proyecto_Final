@@ -10,4 +10,5 @@ urlpatterns = [
     path('confirmar_eliminacion/', views.confirmar_eliminacion, name='confirmar_eliminacion'),
     path('ver_publicaciones/', views.ver_publicaciones_A, name='ver_publicaciones'),
     path('busqueda_filtrada_especie/', views.ver_publicaciones_B, name='busqueda_filtrada_especie'),
+    path('ver_publicacion_usuario_externo/<int:usuario_id>',views.ver_publicacion_usuario_externo, name='ver_publicacion_usuario_externo')
 ]

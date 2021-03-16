@@ -130,6 +130,14 @@ def editar_publicacion(request,publicacion_id):
 
     return render(request, 'publicacion/editar_publicacion.html', {'form':form})
 
+def ver_publicacion_usuario_externo(request,usuario_id):
+
+    if request.method == 'GET':
+        publicaciones = Publicacion.objects.filter(usuario_creador=usuario_id)
+    context = {'publicaciones': publicaciones}
+
+    return render(request, "publicacion/ver_publicacion_usuario_externo.html", context)
+
 
 # __________________ELIMINAR PUBLICACION
 # __________________LISTAR PUBLICACIONES
