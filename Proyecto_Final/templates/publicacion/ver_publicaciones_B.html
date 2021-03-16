@@ -29,17 +29,24 @@
                 <div id="publicacion">
 
                     <ul>
-                        <li>Usuario: {{ publicacion.usuario_creador }}</li>
-                        <li>Especie: {{ publicacion.especie }}</li>
-                        <li>Foto: <img src="{{ MEDIA_URL }}{{ publicacion.foto.url }}"></li>
-                        <li>Descripción: {{ publicacion.descripcion }}</li>
-                        <li>Fecha: {{ publicacion.fecha }}</li>
-                        <li>Estado: {{ publicacion.estado }}</li>
+                        <li>
+                            <p>Usuario: <a href="{% url 'ver_usuario_externo' user.id %}">{{ publicacion.usuario_creador }}</a></p>
+                        </li>
+                        <li><p>Especie: {{ publicacion.especie }}</p></li>
+                        <li><p>Foto:</p> <img src="{{ MEDIA_URL }}{{ publicacion.foto.url }}"></li>
+                        <li><p>Descripción: {{ publicacion.descripcion }}</p></li>
+                        <li><p>Fecha: {{ publicacion.fecha }}</p></li>
+                        <li>
+                            <p>
+                                Estado:
+                                {% if publicacion.estado %}
+                                    Abierto
+                                {% else %}
+                                    Cerrado
+                                {% endif %}
+                            </p>
+                        </li>
                     </ul>
-
-                    <form action="{% url 'ver_mascotas' %}" method="get">
-                        <button type="submit" name="publicacion" value="{{ publicacion }}">Ver Mascotas</button>
-                    </form>
 
                 </div>
 

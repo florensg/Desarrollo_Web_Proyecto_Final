@@ -10,7 +10,6 @@ class Publicacion(models.Model):
     foto = models.ImageField(upload_to='media', null=False)
     sexo = models.CharField(max_length=6, blank=True, null=False, choices=(('macho', 'Macho'),
                                                                            ('hembra', 'Hembra')))
-    
     raza = models.CharField(max_length=50, null=True)
     fecha = models.DateTimeField(auto_now=True, null=False)
     especie = models.CharField(max_length=5, blank=True, null=False, choices=(('perro', 'Perro'),
