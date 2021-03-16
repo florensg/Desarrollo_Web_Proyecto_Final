@@ -96,36 +96,6 @@ def ver_publicaciones(request):
     return render(request, 'publicacion/ver_publicaciones.html', context)
 
 
-# publicaciones sin filtrar
-def ver_publicaciones_A(request):
-
-    context = {'publicaciones': Publicacion.objects.all}
-
-    return render(request, 'publicacion/ver_publicaciones_A.html', context)
-
-
-# publicaciones filtradas
-def ver_publicaciones_B(request):
-
-    context = {}
-
-    if request.GET['especie']:
-
-        especie = request.GET['especie']
-
-        publicaciones = Publicacion.objects.filter(especie=especie)
-
-        if especie == 'perro':
-            especie = 'Perro'
-        else:
-            especie = 'Gato'
-
-        context = {'publicaciones': publicaciones,
-                   'especie': especie}
-
-    return render(request, 'publicacion/ver_publicaciones_B.html', context)
-
-
 class PublicacionForm(ModelForm):
 
     class Meta:
