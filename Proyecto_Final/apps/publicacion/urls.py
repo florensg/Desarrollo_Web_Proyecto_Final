@@ -9,5 +9,4 @@ urlpatterns = [
     path('eliminar_publicacion/', views.eliminar_publicacion, name='eliminar_publicacion'),
     path('confirmar_eliminacion/', views.confirmar_eliminacion, name='confirmar_eliminacion'),
     path('ver_publicaciones/', views.ver_publicaciones, name='ver_publicaciones'),
-    path('busqueda_filtrada_especie/', views.ver_publicaciones_B, name='busqueda_filtrada_especie'),
 ]
