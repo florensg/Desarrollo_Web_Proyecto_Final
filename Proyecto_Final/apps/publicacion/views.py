@@ -98,7 +98,7 @@ def ver_publicaciones(request):
 
 # publicaciones sin filtrar
 def ver_publicaciones_A(request):
-
+    print('Chau')
     context = {'publicaciones': Publicacion.objects.all}
 
     return render(request, 'publicacion/ver_publicaciones_A.html', context)
