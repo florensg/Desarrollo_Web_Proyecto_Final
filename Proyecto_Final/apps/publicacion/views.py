@@ -39,7 +39,7 @@ def ver_mis_publicaciones(request):
     return render(request, "publicacion/ver_mis_publicaciones.html", context)
 
 
-def confirmar_eliminacion(request,publicacion_id):
+def confirmar_eliminacion(request, publicacion_id):
     
     context = {}
     
@@ -52,7 +52,7 @@ def confirmar_eliminacion(request,publicacion_id):
     return render(request, 'publicacion/eliminar_publicacion.html', context)
 
 
-def eliminar_publicacion(request,publicacion_id):
+def eliminar_publicacion(request, publicacion_id):
 
     if request.method == 'GET':
 
