@@ -15,11 +15,11 @@ def ver_perfil(request):
 
 def ver_usuario_externo(request, usuario_id):
 
-    context={}
     usuario = Usuario.objects.get(id=usuario_id)
+    publicacion=Publicacion.objects.filter(usuario_creador=usuario_id)
 
     if request.method == 'GET':
-        context = {'usuario':usuario}
+        context = {'usuario' : usuario, 'publicacion' : publicacion}
     return render(request,'usuario/ver_usuario_externo.html',context)
 
 

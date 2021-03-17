@@ -30,7 +30,7 @@
 
                     <ul>
                         <li> 
-                            <p>Usuario: <a href="{% url 'ver_usuario_externo' user.id %}">{{ publicacion.usuario_creador }}</a> </p>
+                            <p>Usuario: <a href="{% url 'ver_usuario_externo' publicacion.usuario_creador.id %}">{{ publicacion.usuario_creador }}</a> </p>
                         </li>
                         <li> <p>Especie: {{ publicacion.especie }}</p> </li>
                         <li> <p>Foto:</p> <img src="{{ MEDIA_URL }}{{ publicacion.foto.url }}"></li>
