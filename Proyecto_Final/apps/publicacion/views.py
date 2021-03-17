@@ -12,7 +12,7 @@ class Post_Form(ModelForm):
         fields = {'nombre', 'descripcion', 'foto', 'especie', 'sexo', 'raza', 'edad'}
         labels = {'descripcion': 'Descripción General'}
 
-        
+
 def crear_publicacion(request):
 
     if request.method == 'POST':
@@ -42,9 +42,9 @@ def ver_mis_publicaciones(request):
 
 
 def confirmar_eliminacion(request, publicacion_id):
-    
+
     context = {}
-    
+
     if request.method == 'GET':
 
         publicacion = Publicacion.objects.get(id_publicacion=publicacion_id)
@@ -97,7 +97,7 @@ class PublicacionForm(ModelForm):
         fields = ['nombre', 'foto', 'sexo', 'raza', 'especie', 'edad', 'descripcion']
 
     def __init__(self, *args, **kwargs):
-        
+
         super(self.__class__, self).__init__(*args, **kwargs)
         self.fields['nombre'].required=False
         self.fields['foto'].required=False
@@ -111,7 +111,7 @@ class PublicacionForm(ModelForm):
 def editar_publicacion(request,publicacion_id):
 
     instancia = Publicacion.objects.get(id_publicacion=publicacion_id)
-    
+
     form = PublicacionForm(instance=instancia)
 
     if request.method == 'POST':
