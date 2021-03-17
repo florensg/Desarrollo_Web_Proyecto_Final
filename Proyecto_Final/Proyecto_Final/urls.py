@@ -26,7 +26,6 @@ urlpatterns = [
     path('', include('apps.registrate.urls')),
     path('', include('django.contrib.auth.urls')),
     path('', include('apps.publicacion.urls')),
-    path('', include('apps.mascota.urls')),
     path('', include('apps.usuario.urls')),
     path('', include('apps.denuncia.urls')),
     path('', include('apps.postulante.urls')),

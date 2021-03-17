@@ -1,6 +1,5 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render,get_object_or_404
 from apps.publicacion.models import Publicacion
-from apps.mascota.models import Mascota
 from .models import Usuario
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.forms import UserCreationForm
@@ -9,19 +8,19 @@ from django.contrib.auth.forms import UserCreationForm
 def ver_perfil(request):
 
     context = {'n_calificaciones': 0,
-               'publicaciones_usuario': Publicacion.objects.filter(usuario_creador=request.user),
-               'mascotas': Mascota.objects.all}
+               'publicaciones_usuario': Publicacion.objects.filter(usuario_creador=request.user)
+              }
 
     return render(request, "usuario/ver_perfil.html", context)
 
-def ver_usuario_externo(request):
-	context = {}
+def ver_usuario_externo(request, usuario_id):
 
-	if request.GET.get('usuario_creador'):
+    usuario = Usuario.objects.get(id=usuario_id)
+    publicacion=Publicacion.objects.filter(usuario_creador=usuario_id)
 
-		publicacion = Publicacion.objects.filter(usuario_creador=request.GET.get('publicacion.usuario_creador'))
-		context = {'publicacion' : publicacion, 'usuario' : request.GET.get('publicacion.usuario_creador')}
-	return render(request, "usuario/ver_usuario_externo.html",context)
+    if request.method == 'GET':
+        context = {'usuario' : usuario, 'publicacion' : publicacion}
+    return render(request,'usuario/ver_usuario_externo.html',context)
 
 
 class UserForm(UserChangeForm):
@@ -41,26 +40,22 @@ class UserForm(UserChangeForm):
     	self.fields['descripcion_propia'].required=False
     	
 
+def editar_perfil(request,usuario_id):
 
-def editar_perfil(request):
-	form = UserForm(request.POST,request.FILES)
+	instancia = Usuario.objects.get(id=usuario_id)
 
-	if request.POST:
-		if form['first_name'].value():
-			Usuario.objects.filter(username=request.user.username).update(first_name=form['first_name'].value())
-		if form['last_name'].value():
-			Usuario.objects.filter(username=request.user.username).update(last_name=form['last_name'].value())
-		if form['sexo'].value():
-			Usuario.objects.filter(username=request.user.username).update(sexo=form['sexo'].value())
-		if form['provincia'].value():
-			Usuario.objects.filter(username=request.user.username).update(provincia=form['provincia'].value())
-		if form['ciudad'].value():
-			Usuario.objects.filter(username=request.user.username).update(ciudad=form['ciudad'].value())
-		if form['email'].value():
-			Usuario.objects.filter(username=request.user.username).update(email=form['email'].value())
-		if form['descripcion_propia'].value():
-			Usuario.objects.filter(username=request.user.username).update(descripcion_propia=form['descripcion_propia'].value())
+	form = UserForm(instance=instancia)
+
+	if request.method == 'POST':
+
+		form = UserForm(request.POST, instance=instancia)
+
+	if form.is_valid():
+
+		instancia = form.save(commit=False)
+		instancia.save()
+
 		return redirect('ver_perfil')
-
+		
 	return render(request, "usuario/editar_perfil.html", {'form':form})
 

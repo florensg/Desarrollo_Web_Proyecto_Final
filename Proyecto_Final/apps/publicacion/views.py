@@ -1,16 +1,15 @@
 from django.shortcuts import render, redirect
 from django.forms import ModelForm
 from apps.publicacion.models import Publicacion
-from apps.publicacion.models import Contador
-from apps.mascota.views import get_first_number_found
-from apps.mascota.models import Mascota
+from django.utils.datastructures import MultiValueDictKeyError
+from apps.usuario.models import Usuario
 
 
 class Post_Form(ModelForm):
 
     class Meta:
         model = Publicacion
-        fields = {'descripcion', 'foto', 'especie', 'cantidad_de_mascotas'}
+        fields = {'nombre', 'descripcion', 'foto', 'especie', 'sexo', 'raza', 'edad'}
         labels = {'descripcion': 'Descripción General'}
 
 
@@ -27,10 +26,7 @@ def crear_publicacion(request):
 
             form.save()
 
-            contador = Contador.objects.create(publicacion=publicacion, i=request.POST['cantidad_de_mascotas'])
-            contador.save()
-
-            return redirect(to='crear_mascota')
+            return redirect(to='ver_mis_publicaciones')
 
     else:
         form = Post_Form()
@@ -45,59 +41,102 @@ def ver_mis_publicaciones(request):
     return render(request, "publicacion/ver_mis_publicaciones.html", context)
 
 
-def confirmar_eliminacion(request):
+def confirmar_eliminacion(request, publicacion_id):
 
     context = {}
 
-    if request.GET['publicacion']:
+    if request.method == 'GET':
 
-        publicacion_a_eliminar = get_first_number_found(request.GET['publicacion'])
-        publicacion = Publicacion.objects.filter(id_publicacion=publicacion_a_eliminar)[0]
+        publicacion = Publicacion.objects.get(id_publicacion=publicacion_id)
 
-        context = {'publicacion': publicacion,
-                   'publicacion_a_eliminar': publicacion_a_eliminar}
+        context = {'publicacion': publicacion}
 
     return render(request, 'publicacion/eliminar_publicacion.html', context)
 
 
-def eliminar_publicacion(request):
+def eliminar_publicacion(request, publicacion_id):
 
-    if request.GET['publicacion_a_eliminar']:
+    if request.method == 'GET':
 
-        publicacion = request.GET['publicacion_a_eliminar']
-
-        Publicacion.objects.filter(id_publicacion=publicacion).delete()
-        Mascota.objects.filter(publicacion=publicacion).delete()
+        Publicacion.objects.filter(id_publicacion=publicacion_id).delete()
 
     return redirect(to='ver_mis_publicaciones')
 
-#publicaciones sin filtrar
-def ver_publicaciones_A(request):
 
-    context = {'publicaciones': Publicacion.objects.all}
+def ver_publicaciones(request):
 
-    return render(request, 'publicacion/ver_publicaciones_A.html', context)
+    context = {'publicaciones': Publicacion.objects.exclude(usuario_creador=request.user)}
 
-#publicaciones filtradas
-def ver_publicaciones_B(request):
+    try:
+        if request.GET['especie']:
 
-    context = {}
+            especie = request.GET['especie']
+            context.update({'publicaciones': context['publicaciones'].filter(especie=especie)})
 
-    if request.GET['especie']:
+    except MultiValueDictKeyError:
+        pass
 
-        especie = request.GET['especie']
+    try:
+        if request.GET['sexo']:
 
-        publicaciones = Publicacion.objects.filter(especie=especie)
+            sexo = request.GET['sexo']
+            context.update({'publicaciones': context['publicaciones'].filter(sexo=sexo)})
 
-        if especie == 'perro':
-            especie = 'Perro'
-        else:
-            especie = 'Gato'
+    except MultiValueDictKeyError:
+        pass
 
-        context = {'publicaciones': publicaciones,
-                   'especie': especie}
+    context.update({'publicaciones': context['publicaciones'].order_by('-estado', '-fecha')})
 
-    return render(request, 'publicacion/ver_publicaciones_B.html', context)
+    return render(request, 'publicacion/ver_publicaciones.html', context)
+
+
+class PublicacionForm(ModelForm):
+
+    class Meta:
+        model = Publicacion
+        fields = ['nombre', 'foto', 'sexo', 'raza', 'especie', 'edad', 'descripcion']
+
+    def __init__(self, *args, **kwargs):
+
+        super(self.__class__, self).__init__(*args, **kwargs)
+        self.fields['nombre'].required=False
+        self.fields['foto'].required=False
+        self.fields['sexo'].required=False
+        self.fields['raza'].required=False
+        self.fields['especie'].required=False
+        self.fields['edad'].required=False
+        self.fields['descripcion'].required=False
+
+
+def editar_publicacion(request,publicacion_id):
+
+    instancia = Publicacion.objects.get(id_publicacion=publicacion_id)
+
+    form = PublicacionForm(instance=instancia)
+
+    if request.method == 'POST':
+
+        form = PublicacionForm(request.POST,request.FILES, instance= instancia)
+
+    if form.is_valid():
+
+        instancia = form.save(commit=False)
+        instancia.save()
+
+        return redirect('ver_mis_publicaciones')
+
+    return render(request, 'publicacion/editar_publicacion.html', {'form':form})
+
+
+def ver_publicacion_usuario_externo(request, usuario_id):
+
+    usuario = Usuario.objects.get(id=usuario_id)
+
+    publicaciones = Publicacion.objects.filter(usuario_creador=usuario_id)
+
+    context = {'usuario': usuario, 'publicaciones': publicaciones}
+
+    return render(request, "publicacion/ver_publicacion_usuario_externo.html", context)
 
 
 # __________________ELIMINAR PUBLICACION

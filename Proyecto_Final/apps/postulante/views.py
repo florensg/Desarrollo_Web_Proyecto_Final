@@ -1,31 +1,22 @@
 from django.shortcuts import render, redirect
-from apps.mascota.models import Mascota
-from apps.mascota.views import get_first_number_found
 from apps.postulante.models import Postulante
+from apps.publicacion.models import Publicacion
 
+def ver_postulantes(request,publicacion_id):
 
-def confirmar_postulacion(request):
+    postulante = Postulante.objects.filter(publicacion=publicacion_id)
+    context = {'postulantes' : postulante}
+    return render(request,'publicacion/ver_postulantes.html',context)
+
+def postularse(request):
 
     context = {}
+    publicacion = Publicacion.objects.get(id_publicacion=publicacion_id)
+    if request.method == 'GET':
 
-    if request.GET['mascota']:
-
-        mascota = get_first_number_found(request.GET['mascota'])
-        postulantes = Postulante.objects.filter(mascota=mascota)
-
-        context = {'postulantes': postulantes,
-                   'mascota': mascota}
-
-    return render(request, 'publicacion/postularce.html', context)
-
-
-def postularce(request):
-
-    if request.GET['mascota']:
-
-        mascota = Mascota.objects.filter(id_mascota=get_first_number_found(request.GET['mascota']))[0]
-
-        postulante = Postulante(mascota=mascota, usuario_postulado=request.user)
+        postulante = Postulante(publicacion=publicacion, usuario_postulado=request.user)
         postulante.save()
 
-    return redirect(to='ver_publicaciones')
+        return redirect(to='ver_publicaciones')
+    context['publicacion'] = publicacion
+    return render(request,'publicacion/ver_postulantes.html',context)

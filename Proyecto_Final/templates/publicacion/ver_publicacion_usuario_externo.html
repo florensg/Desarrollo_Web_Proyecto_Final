@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %} Publicaciones de {{ usuario.username }} {% endblock %}
+
+{% block main %}
+
+    {% load static %}
+
+    <main>
+
+        <div id="publicaciones">
+            <h2 class="titulo">Publicaciones de {{ usuario.username }}</h2>
+
+            {% for publicacion in publicaciones %}
+
+                <div id="publicacion">
+
+                    <ul>
+                        <li><p>Usuario: {{ publicacion.usuario_creador }}</p></li>
+                        <li><p>Especie: {{ publicacion.especie }}</p></li>
+                        <li><p>Foto: <img src="{{ MEDIA_URL }}{{ publicacion.foto.url }}"></p></li>
+                        <li><p>Descripción: {{ publicacion.descripcion }}</p></li>
+                        <li><p>Fecha: {{ publicacion.fecha }}</p></li>
+                        <li><p><li> <p>Estado:
+                            {% if publicacion.estado %} 
+                                Abierto
+                            {% else %}
+                                Cerrado
+                            {% endif %}
+                            </p>
+                    </ul>
+                   
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </main>
+
+{% endblock %}

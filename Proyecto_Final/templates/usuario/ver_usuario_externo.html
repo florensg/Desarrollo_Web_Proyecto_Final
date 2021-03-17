@@ -37,8 +37,15 @@
                     Sin especificar
                 {% endif %}
             </p>
+
         </div>
 
+        <div id="asideOpcionesUser">
+            <ul>
+                <li><p><a href="{% url 'ver_publicacion_usuario_externo' usuario.id %}">Ver Publicaciones</a></p></li>
+                <li><p><a href="{% url 'crear_denuncia' %}">Denunciar</a></p></li>
+            </ul>
+        </div>
     </main>
 
 {% endblock %}

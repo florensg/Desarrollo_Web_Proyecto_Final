@@ -27,7 +27,7 @@ def crear_denuncia(request):
 
             form.save()
 
-            return redirect(to='home')
+            return redirect(to='ver_usuario_externo')
 
     else:
         form = Post_Form()
