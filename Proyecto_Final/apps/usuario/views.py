@@ -14,13 +14,13 @@ def ver_perfil(request):
     return render(request, "usuario/ver_perfil.html", context)
 
 def ver_usuario_externo(request, usuario_id):
-	context = {}
 
-	if request.GET.get('usuario_id'):
+    usuario = Usuario.objects.get(id=usuario_id)
+    publicacion=Publicacion.objects.filter(usuario_creador=usuario_id)
 
-		publicacion = Publicacion.objects.filter(usuario_creador=request.GET.get('usuario_id'))
-		context = {'publicacion' : publicacion, 'usuario' : request.GET.get('usuario_id')}
-	return render(request, "usuario/ver_usuario_externo.html",context)
+    if request.method == 'GET':
+        context = {'usuario' : usuario, 'publicacion' : publicacion}
+    return render(request,'usuario/ver_usuario_externo.html',context)
 
 
 class UserForm(UserChangeForm):

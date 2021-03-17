@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Confirmar Postulación{% endblock %}
+
+{% block main %}
+
+    {% load static %}
+
+    <main>
+
+        <div id="postulantes">
+
+            <h2 class="titulo">Confirmar Postulación</h2>
+
+            <h3>Usuarios postulados</h3>
+
+            {% for postulante in postulantes %}
+
+                <ul>
+                    <li><p>usuario: {{ postulante.usuario_postulado }}</p></li>
+                </ul>
+
+            {% endfor %}
+
+        </div>
+
+    </main>
+
+{% endblock %}
