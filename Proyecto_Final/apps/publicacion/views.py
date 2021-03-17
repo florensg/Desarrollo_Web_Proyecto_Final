@@ -97,6 +97,7 @@ class PublicacionForm(ModelForm):
         fields = ['nombre', 'foto', 'sexo', 'raza', 'especie', 'edad', 'descripcion']
 
     def __init__(self, *args, **kwargs):
+        
         super(self.__class__, self).__init__(*args, **kwargs)
         self.fields['nombre'].required=False
         self.fields['foto'].required=False
