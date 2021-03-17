@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %} Publicaciones de {{ publicacion.usuario_creador }} {% endblock %}
+{% block title %} Publicaciones de {{ usuario.username }} {% endblock %}
 
 {% block main %}
 
@@ -9,7 +9,7 @@
     <main>
 
         <div id="publicaciones">
-            <h2 class="titulo">Publicaciones de {{ publicacion.usuario_creador }}</h2>
+            <h2 class="titulo">Publicaciones de {{ usuario.username }}</h2>
 
             {% for publicacion in publicaciones %}
 
