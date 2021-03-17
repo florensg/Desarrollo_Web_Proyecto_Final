@@ -11,7 +11,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('mascota', '0003_mascota_usuario_futuro_duenio'),
         ('mensaje', '0001_initial'),
     ]
 

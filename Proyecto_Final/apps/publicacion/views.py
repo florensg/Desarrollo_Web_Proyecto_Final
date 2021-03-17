@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
 from django.forms import ModelForm
 from apps.publicacion.models import Publicacion
-from apps.mascota.views import get_first_number_found
-from apps.mascota.models import Mascota
 from django.utils.datastructures import MultiValueDictKeyError
+from apps.usuario.models import Usuario
 
 
 class Post_Form(ModelForm):
@@ -42,29 +41,24 @@ def ver_mis_publicaciones(request):
     return render(request, "publicacion/ver_mis_publicaciones.html", context)
 
 
-def confirmar_eliminacion(request):
+def confirmar_eliminacion(request, publicacion_id):
 
     context = {}
 
-    if request.GET['publicacion']:
+    if request.method == 'GET':
 
-        publicacion_a_eliminar = get_first_number_found(request.GET['publicacion'])
-        publicacion = Publicacion.objects.filter(id_publicacion=publicacion_a_eliminar)[0]
+        publicacion = Publicacion.objects.get(id_publicacion=publicacion_id)
 
-        context = {'publicacion': publicacion,
-                   'publicacion_a_eliminar': publicacion_a_eliminar}
+        context = {'publicacion': publicacion}
 
     return render(request, 'publicacion/eliminar_publicacion.html', context)
 
 
-def eliminar_publicacion(request):
+def eliminar_publicacion(request, publicacion_id):
 
-    if request.GET['publicacion_a_eliminar']:
+    if request.method == 'GET':
 
-        publicacion = request.GET['publicacion_a_eliminar']
-
-        Publicacion.objects.filter(id_publicacion=publicacion).delete()
-        Mascota.objects.filter(publicacion=publicacion).delete()
+        Publicacion.objects.filter(id_publicacion=publicacion_id).delete()
 
     return redirect(to='ver_mis_publicaciones')
 
@@ -94,36 +88,6 @@ def ver_publicaciones(request):
     context.update({'publicaciones': context['publicaciones'].order_by('-estado', '-fecha')})
 
     return render(request, 'publicacion/ver_publicaciones.html', context)
-
-
-# publicaciones sin filtrar
-def ver_publicaciones_A(request):
-    print('Chau')
-    context = {'publicaciones': Publicacion.objects.all}
-
-    return render(request, 'publicacion/ver_publicaciones_A.html', context)
-
-
-# publicaciones filtradas
-def ver_publicaciones_B(request):
-
-    context = {}
-
-    if request.GET['especie']:
-
-        especie = request.GET['especie']
-
-        publicaciones = Publicacion.objects.filter(especie=especie)
-
-        if especie == 'perro':
-            especie = 'Perro'
-        else:
-            especie = 'Gato'
-
-        context = {'publicaciones': publicaciones,
-                   'especie': especie}
-
-    return render(request, 'publicacion/ver_publicaciones_B.html', context)
 
 
 class PublicacionForm(ModelForm):
@@ -162,6 +126,17 @@ def editar_publicacion(request, publicacion_id):
         return redirect('ver_mis_publicaciones')
 
     return render(request, 'publicacion/editar_publicacion.html', {'form': form})
+
+
+def ver_publicacion_usuario_externo(request, usuario_id):
+
+    usuario = Usuario.objects.get(id=usuario_id)
+
+    publicaciones = Publicacion.objects.filter(usuario_creador=usuario_id)
+
+    context = {'usuario': usuario, 'publicaciones': publicaciones}
+
+    return render(request, "publicacion/ver_publicacion_usuario_externo.html", context)
 
 
 # __________________ELIMINAR PUBLICACION

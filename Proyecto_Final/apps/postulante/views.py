@@ -1,6 +1,4 @@
 from django.shortcuts import render, redirect
-from apps.mascota.models import Mascota
-from apps.mascota.views import get_first_number_found
 from apps.postulante.models import Postulante
 
 

@@ -1,12 +1,12 @@
 from django.db import models
-from apps.mascota.models import Mascota
 from apps.usuario.models import Usuario
+from apps.publicacion.models import Publicacion
 
 
 class Chat(models.Model):
     id_chat = models.AutoField(primary_key=True)
 
-    mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE, related_name="+", null=False)
+    publicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name="+", null=True)
     usuario_creador = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="+", null=False)
     usuario_futuro_duenio = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="+", null=False)
     estado = models.BooleanField(null=False)
