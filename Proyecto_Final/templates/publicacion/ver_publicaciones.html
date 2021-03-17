@@ -12,12 +12,21 @@
             <h2 class="titulo">Publicaciones</h2>
 
             <div>
-                <form action="{% url 'busqueda_filtrada_especie' %}" method="get">
+                <form action="{% url 'ver_publicaciones' %}" method="get">
 
-                    <input type="radio" name="especie" value="perro">
-                    <label for="perro">Perro</label>
-                    <input type="radio" name="especie" value="gato">
-                    <label for="gato">Gato</label>
+                    <div>
+                        <input type="radio" name="especie" value="perro">
+                        <label for="perro">Perro</label>
+                        <input type="radio" name="especie" value="gato">
+                        <label for="gato">Gato</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" name="sexo" value="macho">
+                        <label for="macho">Macho</label>
+                        <input type="radio" name="sexo" value="hembra">
+                        <label for="hembra">Hembra</label>
+                    </div>
 
                     <input type="submit" value="Buscar">
 
@@ -29,29 +38,22 @@
                 <div id="publicacion">
 
                     <ul>
-                        <li> 
-                            <p>Usuario: <a href="{% url 'ver_usuario_externo' publicacion.usuario_creador.id %}">{{ publicacion.usuario_creador }}</a> </p>
-                        </li>
-                        <li> <p>Especie: {{ publicacion.especie }}</p> </li>
-                        <li> <p>Foto:</p> <img src="{{ MEDIA_URL }}{{ publicacion.foto.url }}"></li>
-                        <li> <p>Descripción: {{ publicacion.descripcion }}</p></li>
-                        <li> <p>Fecha: {{ publicacion.fecha }}</p></li>
-                        <li> <p>Estado:
-
-                            {% if publicacion.estado %} 
-
-                                Abierto
-
-                            {% else %}
-
-                                Cerrado
-
-                            {% endif %}
-
+                        <li><p>Foto:</p> <img src="{{ MEDIA_URL }}{{ publicacion.foto.url }}"></li>
+                        <li><p>Usuario: <a href="{% url 'ver_usuario_externo' user.id %}">{{ publicacion.usuario_creador }}</a></p></li>
+                        <li><p>Especie: {{ publicacion.especie }}</p></li>
+                        <li><p>Sexo: {{ publicacion.sexo }}</p></li>
+                        <li><p>Descripción: {{ publicacion.descripcion }}</p></li>
+                        <li><p>Fecha de Creación: {{ publicacion.fecha }}</p></li>
+                        <li>
+                            <p>
+                                Estado:
+                                {% if publicacion.estado %}
+                                    Abierto
+                                {% else %}
+                                    Cerrado
+                                {% endif %}
                             </p>
                         </li>
-                       
-                        
                         <li>
                             {% if publicacion.estado %}
                                 <p> <a href="{% url 'ver_postulantes' publicacion.id_publicacion %}">VER POSTULANTES</a> </p>
@@ -60,7 +62,6 @@
                     </ul>
 
                 </div>
-                <br>
 
             {% endfor %}
 
