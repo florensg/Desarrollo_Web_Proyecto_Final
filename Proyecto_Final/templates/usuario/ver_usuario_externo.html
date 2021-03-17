@@ -13,16 +13,16 @@
 
             <div id="iconUsuarioContainer"> <img id="iconUserImg" src="{% static 'img/iconUsuario.png' %}" alt="iconUsuario"></div>
 
-            <p><b>Usuario:</b> {{ user.username }}</p>
-            <p><b>Email:</b> {{ user.email }}</p>
-            <p><b>Nombre:</b> {{ user.first_name }}</p>
-            <p><b>Apellido:</b> {{ user.last_name }}</p>
-            <p><b>Provincia:</b> {{ user.provincia }}</p>
-            <p><b>Ciudad:</b> {{ user.ciudad }}</p>
+            <p><b>Usuario:</b> {{ usuario.username }}</p>
+            <p><b>Email:</b> {{ usuario.email }}</p>
+            <p><b>Nombre:</b> {{ usuario.first_name }}</p>
+            <p><b>Apellido:</b> {{ usuario.last_name }}</p>
+            <p><b>Provincia:</b> {{ usuario.provincia }}</p>
+            <p><b>Ciudad:</b> {{ usuario.ciudad }}</p>
 
             <p><b>Calificación:</b>
-                {% if user.promedio_calificacion != None %}
-                    {{ user.promedio_calificacion }}
+                {% if usuario.promedio_calificacion != None %}
+                    {{ usuario.promedio_calificacion }}
                 {% else %}
                     -
                 {% endif %}
@@ -31,8 +31,8 @@
             <p><b>N° de Calificaciones:</b> {{ n_calificaciones }}</p>
 
             <p><b>Descripción:</b>
-                {% if user.descripcion_propia != None %}
-                    {{ user.descripcion_propia }}
+                {% if usuario.descripcion_propia != None %}
+                    {{ usuario.descripcion_propia }}
                 {% else %}
                     Sin especificar
                 {% endif %}
@@ -42,7 +42,7 @@
 
         <div id="asideOpcionesUser">
             <ul>
-                <li><p><a href="{% url 'ver_publicacion_usuario_externo' %}">Ver publicaciones</a></p></li>
+                <li><p><a href="{% url 'ver_publicacion_usuario_externo' usuario.id %}">Ver Publicaciones</a></p></li>
                 <li><p><a href="{% url 'crear_denuncia' %}">Denunciar</a></p></li>
             </ul>
         </div>

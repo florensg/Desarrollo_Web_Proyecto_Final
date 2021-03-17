@@ -111,7 +111,7 @@ class PublicacionForm(ModelForm):
 def editar_publicacion(request, publicacion_id):
 
     instancia = Publicacion.objects.get(id_publicacion=publicacion_id)
-    
+
     form = PublicacionForm(instance=instancia)
 
     if request.method == 'POST':
@@ -126,6 +126,17 @@ def editar_publicacion(request, publicacion_id):
         return redirect('ver_mis_publicaciones')
 
     return render(request, 'publicacion/editar_publicacion.html', {'form': form})
+
+
+def ver_publicacion_usuario_externo(request, usuario_id):
+
+    usuario = Usuario.objects.get(id=usuario_id)
+
+    publicaciones = Publicacion.objects.filter(usuario_creador=usuario_id)
+
+    context = {'usuario': usuario, 'publicaciones': publicaciones}
+
+    return render(request, "publicacion/ver_publicacion_usuario_externo.html", context)
 
 
 def ver_publicacion_usuario_externo(request, usuario_id):
