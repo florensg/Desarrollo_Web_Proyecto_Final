@@ -12,6 +12,7 @@ class Post_Form(ModelForm):
         fields = {'nombre', 'descripcion', 'foto', 'especie', 'sexo', 'raza', 'edad'}
         labels = {'descripcion': 'Descripción General'}
 
+        
 def crear_publicacion(request):
 
     if request.method == 'POST':
@@ -124,6 +125,7 @@ def editar_publicacion(request,publicacion_id):
         return redirect('ver_mis_publicaciones')
 
     return render(request, 'publicacion/editar_publicacion.html', {'form':form})
+
 
 def ver_publicacion_usuario_externo(request,usuario_id):
 
