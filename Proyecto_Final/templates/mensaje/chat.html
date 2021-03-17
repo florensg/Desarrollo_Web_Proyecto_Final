@@ -9,7 +9,38 @@
     <main id="chat">
         <h2 class="titulo">Chat</h2>
 
-        {%  %}
+        {% for mensaje in mensajes %}
+
+            {% if mensaje.usuario_emisor == user %}
+
+                <div class="mensaje_A">
+
+                    <p>{{ mensaje.mensaje }}</p>
+                    <p>{{ mensaje.fecha }}</p>
+
+                </div>
+
+            {% else %}
+
+                <div class="mensaje_B">
+
+                    <p>{{ mensaje.mensaje }}</p>
+                    <p>{{ mensaje.fecha }}</p>
+
+                </div>
+
+            {% endif %}
+
+        {% endfor %}
+
+        <form action="{% url 'enviar_mensaje' id_chat %}" method="get">
+
+            <textarea name="mensaje"></textarea>
+            <input type="hidden" name="id_chat" value="{{ id_chat }}">
+
+            <input type="submit" value="Enviar">
+
+        </form>
 
     </main>
 
