@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from django.forms import ModelForm
 from apps.publicacion.models import Publicacion
-from apps.mascota.views import get_first_number_found
-from apps.mascota.models import Mascota
 from apps.usuario.models import Usuario
 
 
