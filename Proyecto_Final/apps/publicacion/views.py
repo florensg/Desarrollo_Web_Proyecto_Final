@@ -127,7 +127,7 @@ def editar_publicacion(request,publicacion_id):
     return render(request, 'publicacion/editar_publicacion.html', {'form':form})
 
 
-def ver_publicacion_usuario_externo(request,usuario_id):
+def ver_publicacion_usuario_externo(request, usuario_id):
 
     usuario = Usuario.objects.get(id=usuario_id)
 
