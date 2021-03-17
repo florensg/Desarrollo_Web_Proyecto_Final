@@ -132,9 +132,7 @@ def editar_publicacion(request,publicacion_id):
 
 def ver_publicacion_usuario_externo(request,usuario_id):
 
-    if request.method == 'GET':
-        publicaciones = Publicacion.objects.filter(usuario_creador=usuario_id)
-    context = {'publicaciones': publicaciones}
+    context = {'publicaciones': Publicacion.objects.filter(usuario_creador=usuario_id)}
 
     return render(request, "publicacion/ver_publicacion_usuario_externo.html", context)
 

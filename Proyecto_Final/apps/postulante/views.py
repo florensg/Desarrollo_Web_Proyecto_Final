@@ -4,9 +4,9 @@ from apps.publicacion.models import Publicacion
 
 def ver_postulantes(request,publicacion_id):
 
-	postulante = Postulante.objects.filter(publicacion=publicacion_id)
-	context = {'postulantes' : postulante}
-	return render(request,'publicacion/ver_postulantes.html',context)
+    postulante = Postulante.objects.filter(publicacion=publicacion_id)
+    context = {'postulantes' : postulante}
+    return render(request,'publicacion/ver_postulantes.html',context)
 
 def postularse(request):
 
