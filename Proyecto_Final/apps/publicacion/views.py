@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.forms import ModelForm
 from apps.publicacion.models import Publicacion
 from django.utils.datastructures import MultiValueDictKeyError
+from apps.usuario.models import Usuario
 
 
 class Post_Form(ModelForm):
@@ -40,29 +41,24 @@ def ver_mis_publicaciones(request):
     return render(request, "publicacion/ver_mis_publicaciones.html", context)
 
 
-def confirmar_eliminacion(request):
+def confirmar_eliminacion(request, publicacion_id):
 
     context = {}
 
-    if request.GET['publicacion']:
+    if request.method == 'GET':
 
-        publicacion_a_eliminar = request.GET['publicacion']
-        publicacion = Publicacion.objects.filter(id_publicacion=publicacion_a_eliminar)[0]
+        publicacion = Publicacion.objects.get(id_publicacion=publicacion_id)
 
-        context = {'publicacion': publicacion,
-                   'publicacion_a_eliminar': publicacion_a_eliminar}
+        context = {'publicacion': publicacion}
 
     return render(request, 'publicacion/eliminar_publicacion.html', context)
 
 
-def eliminar_publicacion(request):
+def eliminar_publicacion(request, publicacion_id):
 
-    if request.GET['publicacion_a_eliminar']:
+    if request.method == 'GET':
 
-        publicacion = request.GET['publicacion_a_eliminar']
-
-        Publicacion.objects.filter(id_publicacion=publicacion).delete()
-        # Mascota.objects.filter(publicacion=publicacion).delete()
+        Publicacion.objects.filter(id_publicacion=publicacion_id).delete()
 
     return redirect(to='ver_mis_publicaciones')
 
@@ -130,6 +126,17 @@ def editar_publicacion(request, publicacion_id):
         return redirect('ver_mis_publicaciones')
 
     return render(request, 'publicacion/editar_publicacion.html', {'form': form})
+
+
+def ver_publicacion_usuario_externo(request, usuario_id):
+
+    usuario = Usuario.objects.get(id=usuario_id)
+
+    publicaciones = Publicacion.objects.filter(usuario_creador=usuario_id)
+
+    context = {'usuario': usuario, 'publicaciones': publicaciones}
+
+    return render(request, "publicacion/ver_publicacion_usuario_externo.html", context)
 
 
 # __________________ELIMINAR PUBLICACION
