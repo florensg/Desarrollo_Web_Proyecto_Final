@@ -11,7 +11,9 @@
 
         <div id="infoUser">
 
-            <div id="iconUsuarioContainer"> <img id="iconUserImg" src="{% static 'img/iconUsuario.png' %}" alt="iconUsuario"></div>
+            <div id="iconUsuarioContainer">
+                <img id="iconUserImg" src="{% static 'img/iconUsuario.png' %}" alt="iconUsuario">
+            </div>
 
             <p><b>Usuario:</b> {{ user.username }}</p>
             <p><b>Email:</b> {{ user.email }}</p>
@@ -43,6 +45,7 @@
             <ul>
                 <li><a href="{% url 'ver_mis_publicaciones' %}">> Mis Publicaciones</a></li>
                 <li><a href="{% url 'crear_publicacion' %}">> Crear una nueva publicación</a></li>
+                <li><a href="{% url 'lista_de_chats' %}">> Chats</a></li>
                 <li><a href="">> Publicaciones guardadas</a></li>
                 <li><a href="">> Tus postulaciones</a></li>
                 <li><a href="{% url 'editar_perfil' user.id %}">> Editar Perfil</a></li>
