@@ -40,7 +40,9 @@ def ver_mis_publicaciones(request):
 
 
 def confirmar_eliminacion(request,publicacion_id):
-
+    
+    context = {}
+    
     if request.method == 'GET':
 
         publicacion = Publicacion.objects.get(id_publicacion=publicacion_id)
@@ -58,33 +60,33 @@ def eliminar_publicacion(request,publicacion_id):
 
     return redirect(to='ver_mis_publicaciones')
 
-#publicaciones sin filtrar
-def ver_publicaciones_A(request):
 
-    context = {'publicaciones': Publicacion.objects.all}
+def ver_publicaciones(request):
 
-    return render(request, 'publicacion/ver_publicaciones_A.html', context)
+    context = {'publicaciones': Publicacion.objects.exclude(usuario_creador=request.user)}
 
-#publicaciones filtradas
-def ver_publicaciones_B(request):
+    try:
+        if request.GET['especie']:
 
-    context = {}
+            especie = request.GET['especie']
+            context.update({'publicaciones': context['publicaciones'].filter(especie=especie)})
 
-    if request.GET['especie']:
+    except MultiValueDictKeyError:
+        pass
 
-        especie = request.GET['especie']
+    try:
+        if request.GET['sexo']:
 
-        publicaciones = Publicacion.objects.filter(especie=especie)
+            sexo = request.GET['sexo']
+            context.update({'publicaciones': context['publicaciones'].filter(sexo=sexo)})
 
-        if especie == 'perro':
-            especie = 'Perro'
-        else:
-            especie = 'Gato'
+    except MultiValueDictKeyError:
+        pass
 
-        context = {'publicaciones': publicaciones,
-                   'especie': especie}
+    context.update({'publicaciones': context['publicaciones'].order_by('-estado', '-fecha')})
 
-    return render(request, 'publicacion/ver_publicaciones_B.html', context)
+    return render(request, 'publicacion/ver_publicaciones.html', context)
+
 
 class PublicacionForm(ModelForm):
 
