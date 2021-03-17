@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.denuncia',
     'apps.home',
-    'apps.mascota',
     'apps.mensaje',
     'apps.postulante',
     'apps.publicacion',

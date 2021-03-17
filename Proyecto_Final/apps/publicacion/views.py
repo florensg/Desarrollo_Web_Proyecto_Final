@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from django.forms import ModelForm
 from apps.publicacion.models import Publicacion
-from apps.mascota.views import get_first_number_found
-from apps.mascota.models import Mascota
 from django.utils.datastructures import MultiValueDictKeyError
 
 
@@ -48,7 +46,7 @@ def confirmar_eliminacion(request):
 
     if request.GET['publicacion']:
 
-        publicacion_a_eliminar = get_first_number_found(request.GET['publicacion'])
+        publicacion_a_eliminar = request.GET['publicacion']
         publicacion = Publicacion.objects.filter(id_publicacion=publicacion_a_eliminar)[0]
 
         context = {'publicacion': publicacion,
@@ -64,7 +62,7 @@ def eliminar_publicacion(request):
         publicacion = request.GET['publicacion_a_eliminar']
 
         Publicacion.objects.filter(id_publicacion=publicacion).delete()
-        Mascota.objects.filter(publicacion=publicacion).delete()
+        # Mascota.objects.filter(publicacion=publicacion).delete()
 
     return redirect(to='ver_mis_publicaciones')
 
