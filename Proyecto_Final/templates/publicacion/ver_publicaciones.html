@@ -41,6 +41,7 @@
                         <li><p>Foto:</p> <img src="{{ MEDIA_URL }}{{ publicacion.foto.url }}"></li>
                         <li><p>Usuario: <a href="{% url 'ver_usuario_externo' publicacion.usuario_creador.id %}">{{ publicacion.usuario_creador }}</a></p></li>
                         <li><p>Especie: {{ publicacion.especie }}</p></li>
+                        <li><p>Edad: {{ publicacion.edad }}</p></li>
                         <li><p>Sexo: {{ publicacion.sexo }}</p></li>
                         <li><p>Descripción: {{ publicacion.descripcion }}</p></li>
                         <li><p>Fecha de Creación: {{ publicacion.fecha }}</p></li>

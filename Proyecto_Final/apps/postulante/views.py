@@ -8,8 +8,11 @@ def ver_postulantes(request,publicacion_id):
     publicacion = Publicacion.objects.get(id_publicacion=publicacion_id)
     postulante = Postulante.objects.filter(publicacion=publicacion,usuario_postulado=request.user)
     postulantes = Postulante.objects.filter(publicacion=publicacion_id)
-    if request.method == 'GET':
+    
+    if request.method == 'POST':
+    
         if not postulante.exists():
+    
             postulacion = Postulante(publicacion=publicacion, usuario_postulado=request.user)
             postulacion.save()
         
@@ -18,3 +21,14 @@ def ver_postulantes(request,publicacion_id):
 
     return render(request,'postulante/ver_postulantes.html',context)
 
+def ver_mis_postulaciones(request):
+
+    context = {}
+    
+    postulaciones = Postulante.objects.filter(usuario_postulado=request.user)
+
+    publicaciones = Publicacion.objects.all()
+
+    context = {'postulaciones' : postulaciones, 'publicaciones' : publicaciones}
+
+    return render(request,'postulante/ver_mis_postulaciones.html',context)

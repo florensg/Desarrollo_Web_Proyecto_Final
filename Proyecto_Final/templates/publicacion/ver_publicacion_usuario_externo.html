@@ -16,8 +16,10 @@
                 <div id="publicacion">
 
                     <ul>
+                        
                         <li><p>Usuario: {{ publicacion.usuario_creador }}</p></li>
                         <li><p>Especie: {{ publicacion.especie }}</p></li>
+                        <li><p>Edad: {{ publicacion.edad }}</p></li>
                         <li><p>Foto: <img src="{{ MEDIA_URL }}{{ publicacion.foto.url }}"></p></li>
                         <li><p>Descripción: {{ publicacion.descripcion }}</p></li>
                         <li><p>Fecha: {{ publicacion.fecha }}</p></li>

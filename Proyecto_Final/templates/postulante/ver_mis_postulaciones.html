@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Mis Postulaciones{% endblock %}
+
+{% block main %}
+
+    {% load static %}
+
+    <main>
+
+        <div id="publicaciones">
+            <h2 class="titulo">Mis Postulaciones</h2>
+
+            {% for publicacion in publicaciones %}
+
+                {% for postulacion in postulaciones %}
+
+                    {% if postulacion.publicacion.id_publicacion == publicacion.id_publicacion %}
+
+                        <div id="publicacion">
+
+                            <ul>
+                                <li><p>Foto:</p> <img src="{{ MEDIA_URL }}{{ publicacion.foto.url }}"></li>
+                                <li><p>Usuario: <a href="{% url 'ver_usuario_externo' publicacion.usuario_creador.id %}">{{ publicacion.usuario_creador }}</a></p></li>
+                                <li><p>Especie: {{ publicacion.especie }}</p></li>
+                                <li><p>Edad: {{ publicacion.edad }}</p></li>
+                                <li><p>Sexo: {{ publicacion.sexo }}</p></li>
+                                <li><p>Descripción: {{ publicacion.descripcion }}</p></li>
+                                <li><p>Fecha de Creación: {{ publicacion.fecha }}</p></li>
+                                <li>
+                                    <p>
+                                        Estado:
+                                        {% if publicacion.estado %}
+                                            Abierto
+                                        {% else %}
+                                            Cerrado
+                                        {% endif %}
+                                    </p>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            {% endfor %}
+
+        </div>
+
+    </main>
+
+{% endblock %}

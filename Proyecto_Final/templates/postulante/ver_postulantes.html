@@ -21,11 +21,12 @@
                 </ul>
 
             {% endfor %}
-            <form action="{% url 'ver_postulantes' publicacion.id_publicacion %}" method="get">
-                
-                <input type="submit" value="Postularse">
 
-            </form>
+                <form action="{% url 'ver_postulantes' publicacion.id_publicacion %}" method="POST">
+                    
+                    <input type="submit" value="Postularse">
+                
+                </form>
 
         </div>
 
