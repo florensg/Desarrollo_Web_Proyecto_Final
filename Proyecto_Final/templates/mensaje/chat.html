@@ -13,7 +13,7 @@
 
             {% if mensaje.usuario_emisor == user %}
 
-                <div class="mensaje_A">
+                <div class="mensaje_A"> <!-- Mensaje usario propio -->
 
                     <p>{{ mensaje.mensaje }}</p>
                     <p>{{ mensaje.fecha }}</p>
@@ -22,7 +22,7 @@
 
             {% else %}
 
-                <div class="mensaje_B">
+                <div class="mensaje_B"> <!-- Mensaje usario externo-->
 
                     <p>{{ mensaje.mensaje }}</p>
                     <p>{{ mensaje.fecha }}</p>
