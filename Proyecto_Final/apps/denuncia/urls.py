@@ -3,6 +3,6 @@ from apps.denuncia import views
 
 
 urlpatterns = [
-    path('crear_denuncia/', views.crear_denuncia, name='crear_denuncia'),
+    path('crear_denuncia/<int:usuario_id>', views.crear_denuncia, name='crear_denuncia'),
     
 ]
