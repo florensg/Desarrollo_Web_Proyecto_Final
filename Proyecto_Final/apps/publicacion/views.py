@@ -139,16 +139,5 @@ def ver_publicacion_usuario_externo(request, usuario_id):
     return render(request, "publicacion/ver_publicacion_usuario_externo.html", context)
 
 
-def ver_publicacion_usuario_externo(request, usuario_id):
-
-    usuario = Usuario.objects.get(id=usuario_id)
-
-    publicaciones = Publicacion.objects.filter(usuario_creador=usuario_id)
-
-    context = {'usuario': usuario, 'publicaciones': publicaciones}
-
-    return render(request, "publicacion/ver_publicacion_usuario_externo.html", context)
-
-
 # __________________ELIMINAR PUBLICACION
 # __________________LISTAR PUBLICACIONES
