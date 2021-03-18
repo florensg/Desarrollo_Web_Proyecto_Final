@@ -17,10 +17,15 @@
             {% for postulante in postulantes %}
 
                 <ul>
-                    <li><p>usuario: {{ postulante.usuario_postulado }}</p></li>
+                    <li><p>usuario: {{ postulante.usuario_postulado.username }}</p></li>
                 </ul>
 
             {% endfor %}
+            <form action="{% url 'ver_postulantes' publicacion.id_publicacion %}" method="get">
+                
+                <input type="submit" value="Postularse">
+
+            </form>
 
         </div>
 
