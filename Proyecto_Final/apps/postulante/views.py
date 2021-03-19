@@ -34,6 +34,16 @@ def ver_mis_postulaciones(request):
     return render(request,'postulante/ver_mis_postulaciones.html',context)
 
 
+def elegir_duenio(request, id_publicacion: int):
+
+    publicacion = Publicacion.objects.get(id_publicacion=id_publicacion)
+
+    context = {'postulantes': Postulante.objects.filter(publicacion=publicacion),
+               'publicacion': publicacion}
+
+    return render(request, 'postulante/elegir_duenio.html', context)
+
+
 def hacer_duenio(request):
 
     id_publicacion = request.GET['id_publicacion']
