@@ -65,7 +65,12 @@ def eliminar_publicacion(request, publicacion_id):
 
 def ver_publicaciones(request):
 
-    context = {'publicaciones': Publicacion.objects.exclude(usuario_creador=request.user)}
+    context = {}
+
+    if request.user.is_authenticated:
+        context['publicaciones'] = Publicacion.objects.exclude(usuario_creador=request.user)
+    else:
+        context['publicaciones'] = Publicacion.objects.all()
 
     try:
         if request.GET['especie']:

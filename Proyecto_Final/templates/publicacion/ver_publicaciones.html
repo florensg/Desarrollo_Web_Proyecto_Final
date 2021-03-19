@@ -57,6 +57,8 @@
                         <li>
                             {% if publicacion.estado %}
                                 <p> <a href="{% url 'ver_postulantes' publicacion.id_publicacion %}">VER POSTULANTES</a> </p>
+                            {% else %}
+                                <p><a href="{% url 'ver_postulantes' publicacion.id_publicacion %}">ENTRAR</a></p>
                             {% endif %}
                         </li>
                     </ul>

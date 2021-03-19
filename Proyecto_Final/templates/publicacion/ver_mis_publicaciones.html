@@ -28,10 +28,21 @@
                                 Cerrado
                             {% endif %}
                             </p>
+                        <li>
+                            <p><a href="{% url 'ver_postulantes' publicacion.id_publicacion %}">
+                                {% if publicacion.estado %}
+                                    VER POSTULANTES
+                                {% else %}
+                                    ENTRAR
+                                {% endif %}
+                            </a></p>
+                        </li>
                     </ul>
+
                     <form action="{% url 'editar_publicacion' publicacion.id_publicacion %}" method='get'>
-                        <button type='submit' name='id_publicacion' value='{{publicacion.id_publicacion}}'>Editar</button>
+                        <button type='submit' name='id_publicacion' value='{{ publicacion.id_publicacion }}'>Editar</button>
                     </form>
+
                     <form action="{% url 'confirmar_eliminacion' publicacion.id_publicacion %}" method="get">
                         <input type="submit" value="Eliminar">
                     </form>
@@ -40,8 +51,10 @@
 
             {% endfor %}
 
-        <a href="{% url 'ver_perfil' %}">Volver</a>
+            <a href="{% url 'ver_perfil' %}">Volver</a>
+
         </div>
+
     </main>
 
 {% endblock %}
