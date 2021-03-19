@@ -1,6 +1,7 @@
 from django.db import models
 from apps.usuario.models import Usuario
 from apps.publicacion.models import Publicacion
+from django.contrib import admin
 
 
 class Chat(models.Model):
@@ -19,3 +20,9 @@ class Mensaje(models.Model):
     usuario_emisor = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="+", null=False)
     mensaje = models.CharField(max_length=1500, null=True)
     fecha = models.DateTimeField(auto_now=True, null=False)
+
+class MensajeAdmin(admin.ModelAdmin):
+    list_display = ('id_mensaje','usuario_emisor','fecha')
+
+class ChatAdmin(admin.ModelAdmin):
+    list_display = ('id_chat','usuario_creador','usuario_futuro_duenio')

@@ -17,13 +17,13 @@
             {% csrf_token %}
             {{ form }}
 
-            <input type="submit" value="ingresar">
+            <input class="boton margin-top-075em" type="submit" value="Ingresar">
 
         </form>
 
         <ul class="links">
 
-            <li><a href="{% url 'password_reset' %}">¿Olvidaste tu contraseña?</a></li>
+            <li><a href="#">¿Olvidaste tu contraseña?</a></li>
             <li><a href="{% url 'registrate' %}">Crear una cuenta nueva</a></li>
 
         </ul>

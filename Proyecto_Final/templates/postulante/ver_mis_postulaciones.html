@@ -18,17 +18,24 @@
                     {% if postulacion.publicacion.id_publicacion == publicacion.id_publicacion %}
 
                         <div id="publicacion">
-
+                            <div id="infoPublicacion">
+                                <img class="fotoPublicacion" src="{{ MEDIA_URL }}{{ publicacion.foto.url }}">
                             <ul>
-                                <li><p>Foto:</p> <img src="{{ MEDIA_URL }}{{ publicacion.foto.url }}"></li>
-                                <li><p>Usuario: <a href="{% url 'ver_usuario_externo' publicacion.usuario_creador.id %}">{{ publicacion.usuario_creador }}</a></p></li>
-                                <li><p>Especie: {{ publicacion.especie }}</p></li>
-                                <li><p>Edad: {{ publicacion.edad }}</p></li>
-                                <li><p>Sexo: {{ publicacion.sexo }}</p></li>
-                                <li><p>Descripción: {{ publicacion.descripcion }}</p></li>
-                                <li><p>Fecha de Creación: {{ publicacion.fecha }}</p></li>
                                 <li>
-                                    <p>
+                                <ul id="infoPublicacion_parte1">
+                                    <li>
+                                    <p class="epigrafe">Usuario: <a href="{% url 'ver_usuario_externo' publicacion.usuario_creador.id %}">{{ publicacion.usuario_creador }}</a></p>
+                                    </li>
+                                    <li>
+                                    <p class="epigrafe">Especie: {{ publicacion.especie }}</p></li>
+                                    <li>
+                                    <p class="epigrafe">Fecha de Creación: {{ publicacion.fecha }}</p></li>
+                                    <li>
+                                    <p class="epigrafe">Edad: {{ publicacion.edad }}</p></li>
+                                    <li>
+                                    <p class="epigrafe">Sexo: {{ publicacion.sexo }}</p></li>
+                                    <li>
+                                    <p id="estadoPublicacion">
                                         Estado:
                                         {% if publicacion.estado %}
                                             Abierto
@@ -36,9 +43,19 @@
                                             Cerrado
                                         {% endif %}
                                     </p>
+                                    </li>
+                                </ul>
                                 </li>
+                                <li>
+                                    <p>Descripción: {{ publicacion.descripcion }}</p>
+                                </li>
+                                <li>
+                                {% if publicacion.estado %}
+                                    <p> <a href="{% url 'ver_postulantes' publicacion.id_publicacion %}">VER POSTULANTES</a> </p>
+                                {% endif %}
+                                </li>        
                             </ul>
-
+                            </div>
                         </div>
 
                     {% endif %}
@@ -48,7 +65,7 @@
             {% endfor %}
 
         </div>
-
+        <a href="{% url 'ver_perfil' %}">Volver</a>
     </main>
 
 {% endblock %}

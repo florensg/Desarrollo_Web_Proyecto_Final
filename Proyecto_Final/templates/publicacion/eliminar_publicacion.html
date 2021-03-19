@@ -11,22 +11,44 @@
         <div id="publicaciones">
             <h2 class="titulo">Confirmación de Eliminación</h2>
 
-            <p>¿Estas seguro que deseas eliminar esta publicación?</p>
+            <p class="alinear_centro negrita">¿Estas seguro de que deseas eliminar esta publicación?</p>
 
             <form action="{% url 'eliminar_publicacion' publicacion.id_publicacion %}" method="get">
                 <input type="submit" value="Eliminar">
             </form>
 
             <div id="publicacion">
-
+                <div id="infoPublicacion">
                 <ul>
-                    <li><p>Usuario: {{ publicacion.usuario_creador }}</p></li>
-                    <li><p>Especie: {{ publicacion.especie }}</p></li>
-                    <li><p>Foto: <img src="{{ MEDIA_URL }}{{ publicacion.foto.url }}"></p></li>
-                    <li><p>Descripción: {{ publicacion.descripcion }}</p></li>
-                    <li><p>Fecha: {{ publicacion.fecha }}</p></li>
-                    <li><p>Estado: {{ publicacion.estado }}</p></li>
+                    <li>
+                    <ul id="infoPublicacion_parte1">
+                        <li>
+                        <p class="epigrafe">Usuario: {{ publicacion.usuario_creador }}</p>
+                        </li>
+                        <li>
+                        <p class="epigrafe">Especie: {{ publicacion.especie }}</p>
+                        </li>
+                        <li>
+                        <p class="epigrafe">Fecha: {{ publicacion.fecha }}</p>
+                        </li>
+                        <li>
+                        <p id="estadoPublicacion">Estado: {{ publicacion.estado }}</p>
+                        </li>
+                    </ul>
+                    </li>
+
+                    <li>
+                        <p>Descripción: {{ publicacion.descripcion }}</p>
+                    </li>
                 </ul>
+                </div>
+                    
+                <img class="fotoPublicacion" src="{{ MEDIA_URL }}{{ publicacion.foto.url }}">
+                    
+
+                <form id="verMascotas" action="{% url 'ver_mascotas' %}" method="get">
+                    <button class="boton" type="submit" name="publicacion" value="{{ publicacion }}">Ver Mascotas</button>
+                </form>
 
             </div>
 

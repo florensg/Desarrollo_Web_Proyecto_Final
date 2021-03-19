@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from django.contrib import admin
 
 class Usuario(AbstractUser):
 
@@ -15,3 +15,7 @@ class Usuario(AbstractUser):
 
 
 # Carolina123: HA.2JzqXf:BCJKx
+
+class UsuarioAdmin(admin.ModelAdmin):
+	list_display = ('id','username','first_name','last_name','sexo','provincia','ciudad','promedio_calificacion')
+	list_filter = ('sexo','provincia','ciudad')
