@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from apps.postulante.models import Postulante
 from apps.publicacion.models import Publicacion
+from apps.usuario.models import Usuario
+from apps.mensaje.models import Chat
+from django.utils.datastructures import MultiValueDictKeyError
+
 
 def ver_postulantes(request, id_publicacion):
 
