@@ -31,6 +31,19 @@ def ver_postulantes(request, id_publicacion):
     return render(request, 'postulante/ver_postulantes.html', context)
 
 
+def ver_mis_postulaciones(request):
+
+    context = {}
+    
+    postulaciones = Postulante.objects.filter(usuario_postulado=request.user)
+
+    publicaciones = Publicacion.objects.all()
+
+    context = {'postulaciones' : postulaciones, 'publicaciones' : publicaciones}
+
+    return render(request,'postulante/ver_mis_postulaciones.html',context)
+
+
 def elegir_duenio(request, id_publicacion: int):
 
     publicacion = Publicacion.objects.get(id_publicacion=id_publicacion)
