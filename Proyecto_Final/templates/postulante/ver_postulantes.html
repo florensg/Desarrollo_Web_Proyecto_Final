@@ -12,10 +12,6 @@
 
             <h2 class="titulo">Confirmar Postulación</h2>
 
-            <form action="{% url 'ver_postulantes' publicacion.id_publicacion %}" method="get">
-                <input type="submit" name="postularse" value="Postularse">
-            </form>
-
             {% if not postulantes %}
 
                     <!-- Si no existe ningún postulante -->
