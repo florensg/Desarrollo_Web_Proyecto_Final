@@ -31,25 +31,6 @@ def ver_postulantes(request, id_publicacion):
     return render(request, 'postulante/ver_postulantes.html', context)
 
 
-def ver_postulantes1(request,publicacion_id):
-    context = {}
-
-    publicacion = Publicacion.objects.get(id_publicacion=publicacion_id)
-    postulante = Postulante.objects.filter(publicacion=publicacion,usuario_postulado=request.user)
-    postulantes = Postulante.objects.filter(publicacion=publicacion_id)
-
-    if request.method == 'POST':
-
-        if not postulante.exists():
-
-            postulacion = Postulante(publicacion=publicacion, usuario_postulado=request.user)
-            postulacion.save()
-
-    context = {'postulantes' : postulantes,'publicacion' : publicacion}
-
-    return render(request,'postulante/ver_postulantes.html',context)
-
-
 def elegir_duenio(request, id_publicacion: int):
 
     publicacion = Publicacion.objects.get(id_publicacion=id_publicacion)
