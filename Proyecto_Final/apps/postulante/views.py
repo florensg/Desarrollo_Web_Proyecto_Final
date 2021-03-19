@@ -32,3 +32,27 @@ def ver_mis_postulaciones(request):
     context = {'postulaciones' : postulaciones, 'publicaciones' : publicaciones}
 
     return render(request,'postulante/ver_mis_postulaciones.html',context)
+
+
+def hacer_duenio(request):
+
+    id_publicacion = request.GET['id_publicacion']
+
+    if request.GET['usuario_elegido']:
+
+        usuario_elegido = Usuario.objects.get(id=Usuario.objects.get(username=request.GET['usuario_elegido']).id)
+
+        publicacion = Publicacion.objects.get(id_publicacion=id_publicacion)
+
+        publicacion.usuario_futuro_duenio = usuario_elegido
+        publicacion.estado = False
+
+        publicacion.save()
+
+        nuevo_chat = Chat(publicacion=publicacion,
+                          usuario_creador=publicacion.usuario_creador,
+                          usuario_futuro_duenio=publicacion.usuario_futuro_duenio,
+                          estado=True)
+        nuevo_chat.save()
+
+    return redirect('ver_postulantes', id_publicacion)
