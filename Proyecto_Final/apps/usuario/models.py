@@ -14,8 +14,15 @@ class Usuario(AbstractUser):
     promedio_calificacion = models.FloatField(null=True)
 
 
-# Carolina123: HA.2JzqXf:BCJKx
-
 class UsuarioAdmin(admin.ModelAdmin):
 	list_display = ('id','username','first_name','last_name','sexo','provincia','ciudad','promedio_calificacion')
 	list_filter = ('sexo','provincia','ciudad')
+
+	
+class Calificacion(models.Model):
+    id_calificacion = models.AutoField(primary_key=True)
+
+    usuario_calificador = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="+", null=False)
+    usuario_calificado = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="+", null=False)
+    calificacion = models.IntegerField(null=False)
+    comentario = models.CharField(max_length=2000, null=False)
