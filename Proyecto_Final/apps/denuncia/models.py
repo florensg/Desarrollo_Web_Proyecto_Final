@@ -1,6 +1,6 @@
 from django.db import models
 from apps.usuario.models import Usuario
-
+from django.contrib import admin
 
 class Denuncia(models.Model):
     id_denuncia = models.AutoField(primary_key=True)
@@ -15,3 +15,7 @@ class Denuncia(models.Model):
                                      ('d', 'Maltrato animal')))
     comentario = models.CharField(max_length=1500, null=False)
     estado = models.BooleanField(null=True)
+
+class DenunciaAdmin(admin.ModelAdmin):
+    list_display = ('usuario_denunciante','usuario_denunciado','fecha','tipo')
+    list_filter = ('tipo','estado')

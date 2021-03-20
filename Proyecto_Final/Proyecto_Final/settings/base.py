@@ -35,6 +35,7 @@ LOGOUT_REDIRECT_URL = 'home'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -136,3 +137,14 @@ STATICFILES_DIRS = (os.path.join(os.path.dirname(BASE_DIR), 'static'),)
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL= False
+EMAIL_PORT= 587
+EMAIL_HOST_USER = "cursosdeprogramacion01@gmail.com"
+EMAIL_HOST_PASSWORD = "informatorio2020"

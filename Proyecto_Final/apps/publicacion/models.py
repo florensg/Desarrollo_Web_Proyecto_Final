@@ -1,6 +1,6 @@
 from django.db import models
 from apps.usuario.models import Usuario
-
+from django.contrib import admin
 
 class Publicacion(models.Model):
     id_publicacion = models.AutoField(primary_key=True)
@@ -19,3 +19,7 @@ class Publicacion(models.Model):
     usuario_futuro_duenio = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="+", null=True)
 
     estado = models.BooleanField(null=True)
+
+class PublicacionAdmin(admin.ModelAdmin):
+    list_display = ('id_publicacion','usuario_creador','sexo','especie','edad','usuario_futuro_duenio')
+    list_filter = ('sexo','especie','estado')

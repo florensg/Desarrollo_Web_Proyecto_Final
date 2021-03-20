@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %} Publicaciones de {{ usuario.username }} {% endblock %}
+{% block title %}Mis Postulaciones{% endblock %}
 
 {% block main %}
 
@@ -9,11 +9,15 @@
     <main>
 
         <div id="publicaciones">
-            <h2 class="titulo">Publicaciones de {{ usuario.username }}</h2>
+            <h2 class="titulo">Mis Postulaciones</h2>
 
             {% for publicacion in publicaciones %}
 
-                <div id="publicacion">
+                {% for postulacion in postulaciones %}
+
+                    {% if postulacion.publicacion.id_publicacion == publicacion.id_publicacion %}
+
+                        <div id="publicacion">
                             <div id="infoPublicacion">
                                 <img class="fotoPublicacion" src="{{ MEDIA_URL }}{{ publicacion.foto.url }}">
                             <ul>
@@ -54,10 +58,14 @@
                             </div>
                         </div>
 
+                    {% endif %}
+
+                {% endfor %}
+
             {% endfor %}
 
         </div>
-
+        <a href="{% url 'ver_perfil' %}">Volver</a>
     </main>
 
 {% endblock %}
