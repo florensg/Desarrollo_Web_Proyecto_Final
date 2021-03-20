@@ -20,16 +20,6 @@
             <p><b>Provincia:</b> {{ usuario.provincia }}</p>
             <p><b>Ciudad:</b> {{ usuario.ciudad }}</p>
 
-            <p><b>Calificación:</b>
-                {% if usuario.promedio_calificacion != None %}
-                    {{ usuario.promedio_calificacion }}
-                {% else %}
-                    -
-                {% endif %}
-            </p>
-
-            <p><b>N° de Calificaciones:</b> {{ n_calificaciones }}</p>
-
             <p><b>Descripción:</b>
                 {% if usuario.descripcion_propia != None %}
                     {{ usuario.descripcion_propia }}
@@ -46,6 +36,39 @@
                 <li><p><a href="{% url 'crear_denuncia' usuario.id %}">Denunciar</a></p></li>
             </ul>
         </div>
+
+        <div class="calificaciones">
+
+            <p><b>Calificación Promedio:</b>
+                {% if usuario.promedio_calificacion != None %}
+                    {{ usuario.promedio_calificacion }}
+                {% else %}
+                    -
+                {% endif %}
+            </p>
+
+            <p><b>N° de Calificaciones:</b>
+                {% if usuario.cantidad_de_calificaciones %}
+                    {{ usuario.cantidad_de_calificaciones }}
+                {% else %}
+                    0
+                {% endif %}
+            </p>
+
+            {% for calificacion in calificaciones %}
+
+                <div class="calificacion">
+
+                    <p>Usuario: {{ calificacion.usuario_calificador.username }}</p>
+                    <p>Calificación: {{ calificacion.calificacion }}</p>
+                    <p>Comentario: {{ calificacion.comentario }}</p>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
     </main>
 
 {% endblock %}

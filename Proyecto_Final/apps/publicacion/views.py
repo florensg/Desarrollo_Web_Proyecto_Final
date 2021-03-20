@@ -65,7 +65,12 @@ def eliminar_publicacion(request, publicacion_id):
 
 def ver_publicaciones(request):
 
-    context = {'publicaciones': Publicacion.objects.exclude(usuario_creador=request.user)}
+    context = {}
+
+    if request.user.is_authenticated:
+        context['publicaciones'] = Publicacion.objects.exclude(usuario_creador=request.user)
+    else:
+        context['publicaciones'] = Publicacion.objects.all()
 
     try:
         if request.GET['especie']:
@@ -126,17 +131,6 @@ def editar_publicacion(request, publicacion_id):
         return redirect('ver_mis_publicaciones')
 
     return render(request, 'publicacion/editar_publicacion.html', {'form': form})
-
-
-def ver_publicacion_usuario_externo(request, usuario_id):
-
-    usuario = Usuario.objects.get(id=usuario_id)
-
-    publicaciones = Publicacion.objects.filter(usuario_creador=usuario_id)
-
-    context = {'usuario': usuario, 'publicaciones': publicaciones}
-
-    return render(request, "publicacion/ver_publicacion_usuario_externo.html", context)
 
 
 def ver_publicacion_usuario_externo(request, usuario_id):

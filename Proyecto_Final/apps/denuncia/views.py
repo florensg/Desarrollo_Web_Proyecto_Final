@@ -18,7 +18,7 @@ def crear_denuncia(request,usuario_id):
     usuario = Usuario.objects.get(id=usuario_id)
     if request.method == 'POST':
 
-        denuncia = Denuncia(usuario_denunciado=usuario_id, usuario_denunciante=request.user, estado=True)
+        denuncia = Denuncia(usuario_denunciado=usuario, usuario_denunciante=request.user, estado=True)
 
         form = Post_Form(request.POST, request.FILES, instance=denuncia)
 
@@ -26,7 +26,7 @@ def crear_denuncia(request,usuario_id):
 
             form.save()
 
-            return redirect(to='ver_usuario_externo')
+            return redirect('ver_usuario_externo', usuario_id)
 
     else:
         form = Post_Form()

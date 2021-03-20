@@ -4,11 +4,39 @@
     padding: 0px;
 }
 
+/*clases de uso genérico*/
+.margin-top-075em {
+    margin-top:0.75em;
+}
 
-body {
-    position: relative;
-    height: 100vh;
-    background-color: #F0EFEB;
+.alinear_centro {
+    text-align: center;
+}
+
+/*clase para invisibilizar elementos*/
+.invisible {
+    display:none;
+}
+
+
+/*botones*/
+.boton {
+    width: 8em;
+    height: 2.3em;
+    border-radius: 3%;
+    background-color: #283618;
+    color: white;
+    font-family:'Open Sans', sans-serif;
+    font-size: medium;
+    letter-spacing: 1px;
+    padding-left: 2px;
+}
+
+
+
+
+.boton:hover {
+    background-color:#BC6C25 ;
 }
 
 .img {
@@ -16,20 +44,33 @@ body {
   height: auto;
 }
 
+
 /*tipografias*/
 .epigrafe{
-    text-align: center;
-    font-size: smaller;
-    font-family: 'Open Sans', sans-serif;  
+    font-family: 'Open Sans', sans-serif;
+    font-size: 3px;
 }
 
 .titulo {
     text-align: center;
     font-weight: bold;
-    font-size: xx-large;
+    font-size: 2.5em;
     font-family: 'Satisfy', cursive;
     letter-spacing: 2px;
     color: #283618;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.subtitulo {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.75em;
+    font-family: 'Satisfy', cursive;
+    letter-spacing: 2px;
+    color: #283618;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
 }
 .negrita {
     font-weight: bold;
@@ -63,6 +104,7 @@ header{
     border-bottom: solid black 1px;
     top: 0px;
     left: 0px;
+    z-index: 10;
 }
 
 #logoMenu {
@@ -106,6 +148,8 @@ main {
     padding-left: 1em;
     padding-right:1em ;
     padding-bottom: 7em;
+    min-height: calc(100vh - 88px);
+    background-color: #F0EFEB;
 }
 
 main p {
@@ -120,44 +164,14 @@ main section {
 
 /*Home*/
 
-.slider {
-    width: 95%;
-    margin: auto;
-    overflow: hidden;
-    padding-bottom: 2em;
-}
-
-.slider ul {
-    padding: 0;
-    display: flex;
-    width: 400%;
-    animation: cambio 20s infinite;
-
-}
-
-.slider li {
+.carousel-inner img {
     width: 100%;
-    list-style: none;
+    height: 50em;
+    object-fit: cover;
 }
 
-.slider img {
-    width: 100%;
-    height: 33em;
-}
-
-@keyframes cambio {
-    0%{margin-left: 0;}
-    20%{margin-left: 0;}
-
-    25% {margin-left: -100%;}
-    45% {margin-left: -100%;}
-
-    50% {margin-left: -200%;}
-    70% {margin-left: -200%;}
-
-    75% {margin-left: -300%;}
-    95% {margin-left: -300%;}
-
+.carousel {
+    margin-top: 1em;
 }
 
 #seccionHome {
@@ -177,6 +191,7 @@ main section {
     letter-spacing: 1px;
     text-decoration: none;
     color: #FEFAE0;
+    text-align: center;
 
 }
 
@@ -184,6 +199,7 @@ main section {
     margin-top: 8px;
     background-color:#283618;
     width: 45vh;
+    padding-left: 6vh;
 }
 
 
@@ -207,20 +223,6 @@ form {
     text-align: center;
 }
 
-.boton {
-    width: 7em;
-    height: 2.5em;
-    border-radius: 3%;
-    background-color: #283618;
-    color: white;
-    font-family:'Open Sans', sans-serif;
-    font-size: medium;
-    letter-spacing: 1px;
-}
-
-.boton:hover {
-    background-color:#BC6C25 ;
-}
 
 /*Entrar*/
 
@@ -250,7 +252,12 @@ form {
 #perfilUsuarioPropio {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-auto-rows: 1fr;
+    grid-auto-rows: auto;
+}
+
+#tituloPerfil {
+    grid-column: 1/3;
+    grid-row: 1/2;
 }
 
 #infoUser {
@@ -259,6 +266,7 @@ form {
     justify-self: center;
     text-align: center;
 }
+
 
 #iconUsuarioContainer{
     width: 15%;
@@ -269,12 +277,13 @@ form {
     width: 100%;
 }
 
-
+#asideOpcionesUser ul {
+    padding: 0;
+}
 
 #asideOpcionesUser{
-    grid-row: 1/3;
+    grid-row: 2/3;
     grid-column: 2/3;
-    margin-top: 1em;
 }
 
 #publicaciones {
@@ -333,11 +342,90 @@ main a:hover {
     margin:0 auto ;
 }
 
+/*Crear publicaciones*/
+.boton__crearPublicacion {
+    width: 8em;
+    height: 2.3em;
+    border-radius: 3%;
+    background-color: #283618;
+    color: white;
+    font-family:'Open Sans', sans-serif;
+    font-size: medium;
+    letter-spacing: 1px;
+    margin-top: 1em;
+    padding-left: 2px;
+}
+
+.boton__crearPublicacion:hover {
+    background-color:#BC6C25 ;
+}
+
+/*Ver_Publicaciones_A*/
+.fotoPublicacion {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+
+#publicacion {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.8fr 0.2fr;
+    grid-auto-rows:0;
+    margin-top: 1em;
+    height: 475px;
+    border: #BC6C25 2px solid;
+    background-color: #FFD7BA;
+}
+
+
+#infoPublicacion_parte1 {
+    background-color: #B7B7A4;
+    border-left: #283618 1.2px solid;
+    border-bottom:  #283618 1.2px solid;;
+}
+
+
+#infoPublicacion {
+    background-color: white;
+    border-left:#BC6C25 1px solid ;
+    grid-column: 2/3;
+    grid-row: 1/3;
+    width: 100%;
+    height: 100%;
+}
+
+#verMascotas {
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+#estadoPublicacion {
+    display: none;
+}
+
+
+#publicacion p{
+    font-weight: bold;
+    color: black;
+    font-size: 1em;
+}
+
+/*Tus_publicaciones*/
+
+#botones {
+    display: inline-flex;
+    align-items:center;
+    justify-content: center;
+}
+
+
 /*pie de pagina*/
 footer {
     width: 100%;
-    position: fixed;
-    bottom: 0;
+    height: 88px;
 }
 
 #pieDePag {

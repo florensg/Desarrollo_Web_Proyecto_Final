@@ -28,7 +28,8 @@ def registro(request):
             formulario.save()
 
             user = authenticate(username=formulario.cleaned_data['username'],
-                                password=formulario.cleaned_data['password1'])
+                                password=formulario.cleaned_data['password1'],
+                                cantidad_de_calificaciones=0)
             login(request, user)
 
             return redirect(to='home')
