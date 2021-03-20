@@ -49,11 +49,7 @@
                                 <li>
                                     <p>Descripción: {{ publicacion.descripcion }}</p>
                                 </li>
-                                <li>
-                                {% if publicacion.estado %}
-                                    <p> <a href="{% url 'ver_postulantes' publicacion.id_publicacion %}">VER POSTULANTES</a> </p>
-                                {% endif %}
-                                </li>        
+
                             </ul>
                             </div>
                         </div>

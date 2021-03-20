@@ -80,7 +80,11 @@ def calificar_usuario(request):
 			usuario = Usuario.objects.get(id=publicacion.usuario_futuro_duenio.id)
 
 			# Se actualiza la cantidad de calificaciones
-			usuario.cantidad_de_calificaciones = usuario.cantidad_de_calificaciones + 1
+			if usuario.cantidad_de_calificaciones:
+				usuario.cantidad_de_calificaciones = usuario.cantidad_de_calificaciones + 1
+
+			else:
+				usuario.cantidad_de_calificaciones = 1
 
 			calificaciones = Calificacion.objects.filter(usuario_calificado=publicacion.usuario_futuro_duenio)
 			usuario.save()
