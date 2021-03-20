@@ -22,16 +22,6 @@
             <p><b>Provincia:</b> {{ user.provincia }}</p>
             <p><b>Ciudad:</b> {{ user.ciudad }}</p>
 
-            <p><b>Calificación:</b>
-                {% if user.promedio_calificacion != None %}
-                    {{ user.promedio_calificacion }}
-                {% else %}
-                    -
-                {% endif %}
-            </p>
-
-            <p><b>N° de Calificaciones:</b> {{ n_calificaciones }}</p>
-
             <p><b>Descripción:</b>
                 {% if user.descripcion_propia != None %}
                     {{ user.descripcion_propia }}
@@ -39,6 +29,7 @@
                     Sin especificar
                 {% endif %}
             </p>
+
         </div>
 
         <div id="asideOpcionesUser">
@@ -46,9 +37,41 @@
                 <li><a href="{% url 'ver_mis_publicaciones' %}">> Mis Publicaciones</a></li>
                 <li><a href="{% url 'crear_publicacion' %}">> Crear una nueva publicación</a></li>
                 <li><a href="{% url 'lista_de_chats' %}">> Chats</a></li>
-                <li><a href="{% url 'ver_mis_postulaciones' %}">> Tus postulaciones</a></li>
+                <li><a href="">> Tus postulaciones</a></li>
                 <li><a href="{% url 'editar_perfil' user.id %}">> Editar Perfil</a></li>
             </ul>
+        </div>
+
+        <div class="calificaciones">
+
+            <p><b>Calificación Promedio:</b>
+                {% if user.promedio_calificacion != None %}
+                    {{ user.promedio_calificacion }}
+                {% else %}
+                    -
+                {% endif %}
+            </p>
+
+            <p><b>N° de Calificaciones:</b>
+                {% if user.cantidad_de_calificaciones %}
+                    {{ user.cantidad_de_calificaciones }}
+                {% else %}
+                    0
+                {% endif %}
+            </p>
+
+            {% for calificacion in calificaciones %}
+
+                <div class="calificacion">
+
+                    <p>Usuario: {{ calificacion.usuario_calificador.username }}</p>
+                    <p>Calificación: {{ calificacion.calificacion }}</p>
+                    <p>Comentario: {{ calificacion.comentario }}</p>
+
+                </div>
+
+            {% endfor %}
+
         </div>
 
     </main>
