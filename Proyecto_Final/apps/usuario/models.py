@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from django.contrib import admin
 
 class Usuario(AbstractUser):
 
@@ -13,7 +13,12 @@ class Usuario(AbstractUser):
     cantidad_de_calificaciones = models.IntegerField(null=True)
     promedio_calificacion = models.FloatField(null=True)
 
+    
+class UsuarioAdmin(admin.ModelAdmin):
+	list_display = ('id','username','first_name','last_name','sexo','provincia','ciudad','promedio_calificacion')
+	list_filter = ('sexo','provincia','ciudad')
 
+    
 class Calificacion(models.Model):
     id_calificacion = models.AutoField(primary_key=True)
 
