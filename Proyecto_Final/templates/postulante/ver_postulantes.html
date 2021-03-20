@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Confirmar Postulación{% endblock %}
+
+{% block main %}
+
+    {% load static %}
+
+    <main>
+
+        <div id="postulantes">
+
+            <h2 class="titulo">Confirmar Postulación</h2>
+
+            {% if not postulantes %}
+
+                    <!-- Si no existe ningún postulante -->
+
+                    <p>Nadie se ha postulado aún</p>
+
+                    {% if publicacion.usuario_creador != user %}
+
+                        <!-- Vista usuario externo -->
+
+                        <form action="{% url 'ver_postulantes' publicacion.id_publicacion %}" method="get">
+                            <input type="submit" name="postularse" value="Postularse">
+                        </form>
+
+                    {% endif %}
+
+                {% else %}
+
+                    <!-- Si existe algún postulante -->
+
+                    <p>Usuarios postulados:</p>
+
+                    {% for postulante in postulantes %}
+
+                        <p><a href="{% url 'ver_usuario_externo' postulante.usuario_postulado.id %}">> {{ postulante.usuario_postulado.username }}</a></p>
+
+                    {% endfor %}
+
+                    {% if publicacion.estado %}
+
+                        {% if publicacion.usuario_creador == user %}
+
+                            <!-- Vista usuario creador -->
+
+                            <form action="{% url 'elegir_duenio' publicacion.id_publicacion %}" method="get">
+                                <input type="submit" value="Elegir Dueño">
+                            </form>
+
+                        {% else %}
+
+                            <!-- Vista usuario externo -->
+
+                            <form action="{% url 'ver_postulantes' publicacion.id_publicacion %}" method="get">
+                                <input type="submit" name="postularse" value="Postularse">
+                            </form>
+
+                        {% endif %}
+
+                    {% else %}
+
+                        <p>Dueño Elegido:</p>
+                        <p><a href="{% url 'ver_usuario_externo' publicacion.usuario_futuro_duenio.id %}">> {{ publicacion.usuario_futuro_duenio.username }}</a></p>
+
+                        {% if publicacion.usuario_creador == user %}
+
+                            <!-- Vista usuario creador -->
+
+                            <form action="{% url 'calificar_usuario' %}" method="get">
+
+                                <input type="hidden" name="id_publicacion" value="{{ publicacion.id_publicacion }}">
+                                <input type="submit" value="Calificar Dueño">
+
+                            </form>
+
+                        {% endif %}
+
+                    {% endif %}
+
+                {% endif %}
+
+        </div>
+
+    </main>
+
+{% endblock %}

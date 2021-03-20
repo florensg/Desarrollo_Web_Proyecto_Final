@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Elegir Dueño{% endblock %}
+
+{% block main %}
+
+    {% load static %}
+
+    <main>
+
+        <div id="postulantes">
+
+            <h2 class="titulo">Elegir Dueño</h2>
+
+            <p>Usuarios postulados:</p>
+
+            <form action="{% url 'hacer_duenio' %}" method="get">
+
+                {% for postulante in postulantes %}
+
+                    <input type="radio" name="usuario_elegido" value="{{ postulante.usuario_postulado }}">
+                    <label for="{{ postulante.usuario_postulado }}">{{ postulante.usuario_postulado.username }}</label>
+
+                {% endfor %}
+
+                <input type="hidden" name="id_publicacion" value="{{ publicacion.id_publicacion }}">
+
+                <input type="submit" value="Hacer Dueño">
+
+            </form>
+
+        </div>
+
+    </main>
+
+{% endblock %}

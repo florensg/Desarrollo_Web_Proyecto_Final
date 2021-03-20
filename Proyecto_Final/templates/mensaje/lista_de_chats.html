@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Chats{% endblock %}
+
+{% block main %}
+
+    {% load static %}
+
+    <main id="chats">
+        <h2 class="titulo">Chats</h2>
+
+        {% for chat in chats %}
+
+            <div id="chat">
+
+                <ul>
+                    <li><p>Publicacion: {{ chat.publicacion.id_publicacion }}</p></li>
+                    <li><p>Creador: {{ chat.usuario_creador }}</p></li>
+                    <li><p>Dueño: {{ chat.usuario_futuro_duenio }}</p></li>
+                </ul>
+
+                <a href="{% url 'chat' chat.id_chat %}">Entrar</a>
+
+            </div>
+
+        {% endfor %}
+
+    </main>
+
+{% endblock %}

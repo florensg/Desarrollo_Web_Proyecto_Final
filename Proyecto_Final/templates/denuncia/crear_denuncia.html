@@ -13,13 +13,14 @@
         <h2 class="titulo">Crear Denuncia</h2>
 
         <form id="crearDenuncia" method="post" enctype="multipart/form-data">
-
+        	<p><b>Usuario denunciante:</b> {{ user.username }}</p>
+        	<p><b>Usuario denunciado:</b> {{ usuario.username }}</p>
             {% csrf_token %}
             {{ form }}
 
-            <button type="submit">Subir</button>
+            <input type="submit" value="Denunciar">
         </form>
-
+        <a href="{% url 'ver_usuario_externo' usuario.id %}">Volver</a>
     </main>
 
 {% endblock %}
